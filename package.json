@@ -1,0 +1,20 @@
+{
+  "name": "weather",
+  "version": "0.0.1",
+  "description": "shri2014",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shri2014ekb/team1.git"
+  },
+  "private": true,
+  "devDependencies": {
+    "express": "^4.10.1",
+    "ipware": "0.0.2",
+    "morgan": "^1.5.0",
+    "optimist": "^0.6.1",
+    "q": "^1.0.1",
+    "request": "^2.47.0",
+    "stylus": "^0.49.3",
+    "xml2js": "^0.4.4"
+  }
+}
