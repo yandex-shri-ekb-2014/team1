@@ -3,11 +3,119 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Яндекс.Погода- контент</title>
-    <link href="index.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <header>
-
+    <header style="height: 350px; background-color: #b5d592">
     </header>
+    <section class="content">
+        <div class="content__tabs">
+            <ul class="tabs">
+                <li class="tabs__item tabs__item_left tabs__item_active">кратко</li>
+                <li class="tabs__item">подробно</li>
+                <li class="tabs__item tabs__item_right">наглядно</li>
+            </ul>
+        </div>
+        <div class="content__weather-short">
+                <table class="weather-short">
+                    <thead>
+                        <tr>
+                            <td class="weather-short__item">
+                                <p class="weather-short__dayname">завтра</p>
+                                <p class="weather-short__date">22 августа</p>
+                            </td>
+                            <td class="weather-short__item">
+                                <p class="weather-short__dayname">сб</p>
+                                <p class="weather-short__date">23</p>
+                            </td>
+                            <td class="weather-short__item">
+                                <p class="weather-short__dayname">вс</p>
+                                <p class="weather-short__date">24</p>
+                            </td>
+                            <td class="weather-short__gap"></td>
+                            <td class="weather-short__item">
+                                <p class="weather-short__dayname">пн</p>
+                                <p class="weather-short__date">25</p>
+                            </td>
+                            <td class="weather-short__item">
+                                <p class="weather-short__dayname">вт</p>
+                                <p class="weather-short__date">26</p>
+                            </td>
+                            <td class="weather-short__item">
+                                <p class="weather-short__dayname">ср</p>
+                                <p class="weather-short__date">27</p>
+                            </td>
+                            <td class="weather-short__item">
+                                <p class="weather-short__dayname">чт</p>
+                                <p class="weather-short__date">28</p>
+                            </td>
+                            <td class="weather-short__item">
+                                <p class="weather-short__dayname">пт</p>
+                                <p class="weather-short__date">29</p>
+                            </td>
+                            <td class="weather-short__item">
+                                <p class="weather-short__dayname">сб</p>
+                                <p class="weather-short__date">30</p>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="weather-short__dayweather">
+                                <img src="http://yandex.st/weather/1.2.77/i/icons/30x30/bkn_d.png">
+                                <p class="weather-short__descr">облачно, с&nbsp;прояснениями, небольшой дождь</p>
+                                <p class="weather-short__temperature">+20</p>
+                            </td>
+                            <td class="weather-short__dayweather">
+                                <img src="http://yandex.st/weather/1.2.77/i/icons/30x30/ovc.png">
+                                <p class="weather-short__descr">облачно, с&nbsp;прояснениями</p>
+                                <p class="weather-short__temperature">+21</p>
+                            </td>
+                            <td class="weather-short__dayweather">
+                                <img src="http://yandex.st/weather/1.2.77/i/icons/30x30/bkn_d.png">
+                                <p class="weather-short__descr">облачно, с&nbsp;прояснениями</p>
+                                <p class="weather-short__temperature">+19</p>
+                            </td>
+                            <td class="weather-short__gap"></td>
+                            <td class="weather-short__dayweather">
+                                <img src="http://yandex.st/weather/1.2.77/i/icons/30x30/bkn_d.png">
+                                <p class="weather-short__descr">переменная облачность, небольшой дождь</p>
+                                <p class="weather-short__temperature">+16</p>
+                            </td>
+                            <td class="weather-short__dayweather">
+                                <img src="http://yandex.st/weather/1.2.77/i/icons/30x30/bkn_d.png">
+                                <p class="weather-short__descr">переменная облачность, небольшой дождь</p>
+                                <p class="weather-short__temperature">+12</p>
+                            </td>
+                            <td class="weather-short__dayweather">
+                                <img src="http://yandex.st/weather/1.2.77/i/icons/30x30/bkn_d.png">
+                                <p class="weather-short__descr">облачно, с&nbsp;прояснениями</p>
+                                <p class="weather-short__temperature">+22</p>
+                            </td>
+                            <td class="weather-short__dayweather">
+                                <img src="http://yandex.st/weather/1.2.77/i/icons/30x30/bkn_d.png">
+                                <p class="weather-short__descr">облачно, с&nbsp;прояснениями</p>
+                                <p class="weather-short__temperature">+14</p>
+                            </td>
+                            <td class="weather-short__dayweather">
+                                <img src="http://yandex.st/weather/1.2.77/i/icons/22x22/skc_d.png">
+                                <p class="weather-short__descr">ясно</p>
+                                <p class="weather-short__temperature">+29</p>
+                            </td>
+                            <td class="weather-short__dayweather">
+                                <img src="http://yandex.st/weather/1.2.77/i/icons/22x22/skc_d.png">
+                                <p class="weather-short__descr">ясно</p>
+                                <p class="weather-short__temperature">+21</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="weather-short__nightweather">
+                                <p class="weather-short__night-temperature"></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+    </section>
 </body>
 </html>

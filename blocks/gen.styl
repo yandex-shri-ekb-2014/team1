@@ -6,4 +6,16 @@ body
     min-width 1024px
     max-width 1600px
     margin 0 auto
-    padding 20px 25px
+    padding 0 25px 20px
+    font-family $standartFont
+
+clearfix()
+    zoom: 1 if ie
+
+    &:before,
+    &:after
+        content: "";
+        display: table;
+
+    &:after
+        clear: both;
