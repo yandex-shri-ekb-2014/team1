@@ -1,0 +1,14 @@
+{
+  "name": "weather",
+  "version": "0.0.1",
+  "description": "shri2014",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shri2014ekb/team1.git"
+  },
+  "private": true,
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-concat": "^2.4.1"
+  }
+}
