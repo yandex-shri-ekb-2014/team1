@@ -5,3 +5,5 @@ atlassian-ide-plugin.xml
 npm-debug.log
 
 node_modules
+desktop.bundles/index/*.css
+desktop.bundles/index/*.styl

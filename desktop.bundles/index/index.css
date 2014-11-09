@@ -94,3 +94,10 @@ body {
   bottom: 10px;
   left: 10px;
 }
+.weather-short__nightweather {
+  padding: 10px;
+}
+.weather-short__night-temperature {
+  font-size: 13px;
+  color: #6d6e6e;
+}

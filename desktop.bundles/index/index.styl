@@ -1,8 +1,9 @@
 /*шрифты и цвета, и любые переменные*/
 $standartFont = "Arial", "Helvetica CY", "Nimbus Sans L", sans-serif
 
-$tabBorderColor = rgba(0,0,0,0.4)
+$borderColor = rgba(0,0,0,0.4)
 $activeColor = #ffeaae
+$lightText = #6d6e6e
 
 html
     margin 0
@@ -48,14 +49,14 @@ clearfix()
     vertical-align top
     padding 5px 10px
     cursor pointer
-    border-top 1px solid $tabBorderColor
-    border-bottom  1px solid $tabBorderColor
+    border-top 1px solid $borderColor
+    border-bottom  1px solid $borderColor
 .tabs__item_left
-    border 1px solid $tabBorderColor
+    border 1px solid $borderColor
     border-bottom-left-radius 2px
     border-top-left-radius 2px
 .tabs__item_right
-    border 1px solid $tabBorderColor
+    border 1px solid $borderColor
     border-bottom-right-radius 2px
     border-top-right-radius 2px
 .tabs__item_active
@@ -91,3 +92,8 @@ clearfix()
     position absolute
     bottom 10px
     left 10px
+.weather-short__nightweather
+    padding 10px
+.weather-short__night-temperature
+    font-size 13px
+    color $lightText
