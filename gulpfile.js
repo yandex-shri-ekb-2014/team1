@@ -1,13 +1,16 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
-// var watcher = require('gulp-watcher');
-// var min = require('gulp-min');
 var stylus = require('gulp-stylus');
-// var copy = require('gulp-copy');
-// var jshint = require('gulp-jshint');
-// var imagemin = require('gulp-imagemin');
-// var autoprefixer = require('gulp-autoprefixer');
+var jshint = require('gulp-jshint');
+var watch = require('gulp-watch');
 // var csscomb = require('gulp-csscomb');
+var autoprefixer = require('gulp-autoprefixer');
+
+
+// var min = require('gulp-min');
+// var copy = require('gulp-copy');
+// var imagemin = require('gulp-imagemin');
+
 // var imagemin = require('gulp-imagemin');
 
 
@@ -20,18 +23,36 @@ gulp.task('concat-scripts', function() {
 gulp.task('concat-stylus', function() {
   gulp.src('./blocks/**/*.styl')
     .pipe(concat('index.styl'))
-    .pipe(gulp.dest('./desktop.bundles/index/'))
-});
-
-gulp.task('stylus-generate', function () {
-  gulp.src('./desktop.bundles/index/index.styl')
     .pipe(stylus())
+    .pipe(autoprefixer({
+        browsers: ['> 0%'],
+        cascade: false
+    }))
     .pipe(gulp.dest('./desktop.bundles/index/'));
 });
 
+gulp.task('lint', function() {
+  return gulp.src('./blocks/**/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
+});
 
-gulp.task('styles', ['concat-stylus', 'stylus-generate']);
+gulp.task('watch', function () {
+    gulp.watch('./blocks/**/*.styl', function(event) { 
+	    gulp.run('concat-stylus'); 
+	}); 
+    gulp.watch('./blocks/**/*.js' , function (event) {
+        gulp.run('concat-scripts');
+    });
+});
+
+
+gulp.task('styles', ['concat-stylus']);
 gulp.task('scripts', ['concat-scripts']);
+gulp.task('jshint', ['lint']);
 
-// The default task (called when you run `gulp` from cli)
-gulp.task('default', ['styles','scripts']);
+
+gulp.task('default', ['styles','scripts','jshint','watch']);
+
+
+
