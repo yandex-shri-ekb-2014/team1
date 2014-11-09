@@ -1,6 +1,93 @@
 /*шрифты и цвета, и любые переменные*/
 $standartFont = "Arial", "Helvetica CY", "Nimbus Sans L", sans-serif
 
+$tabBorderColor = rgba(0,0,0,0.4)
+$activeColor = #ffeaae
 
-section
-    background red
+html
+    margin 0
+    padding 0
+
+body
+    min-width 1024px
+    max-width 1600px
+    margin 0 auto
+    padding 0 25px 20px
+    font-family $standartFont
+
+clearfix()
+    zoom: 1 if ie
+
+    &:before,
+    &:after
+        content: "";
+        display: table;
+
+    &:after
+        clear: both;
+
+.content
+    margin-top 22px
+    clearfix()
+
+.content__tabs
+    display block
+.content__weather-short
+    margin-top 22px
+
+.tabs
+    margin 0
+    padding 0
+    list-style none
+    font-size 0
+.tabs__item
+    display inline-block
+    font-size 13px
+    line-height 1
+    background-color #ffffff
+    vertical-align top
+    padding 5px 10px
+    cursor pointer
+    border-top 1px solid $tabBorderColor
+    border-bottom  1px solid $tabBorderColor
+.tabs__item_left
+    border 1px solid $tabBorderColor
+    border-bottom-left-radius 2px
+    border-top-left-radius 2px
+.tabs__item_right
+    border 1px solid $tabBorderColor
+    border-bottom-right-radius 2px
+    border-top-right-radius 2px
+.tabs__item_active
+    background-color $activeColor
+    cursor default
+
+
+
+.weather-short
+    width 100%
+    text-align left
+.weather-short__item
+    width 11%
+.weather-short__dayname
+    font-size 22px
+    margin 0
+.weather-short__date
+    font-size 13px
+    margin 0
+.weather-short__gap
+    width 20px
+.weather-short__dayweather
+    padding 10px 10px 25px
+    position relative
+.weather-short__descr
+    margin 0 0 5px
+    font-size 10px
+    line-height 1.2
+.weather-short__temperature
+    font-size 16px
+    line-height 1
+    margin 0
+    position absolute
+    bottom 10px
+    left 10px
