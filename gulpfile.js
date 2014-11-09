@@ -46,12 +46,6 @@ gulp.task('watch', function () {
     });
 });
 
-// gulp.task('comb', function () {
-//   return gulp.src('./blocks/**/*.styl')
-//     .pipe(csscomb())
-//     .pipe(gulp.dest('./blocks/'));
-// });
-
 
 gulp.task('styles', ['concat-stylus']);
 gulp.task('scripts', ['concat-scripts']);
