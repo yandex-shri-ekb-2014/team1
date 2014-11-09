@@ -12,11 +12,11 @@ function weatherRequest(path) {
     var requestOpts = {
         url: 'http://ekb.shri14.ru/api' + path,
         json: true
-    }
+    };
 
     return request(requestOpts).spread(function(response, body) {
-        return body
-    })
+        return body;
+    });
 }
 
 /**
@@ -24,7 +24,7 @@ function weatherRequest(path) {
  * @return {Q.Promise<?>}
  */
 function getLocalityInfo(geoid) {
-    return weatherRequest('/localities/' + geoid)
+    return weatherRequest('/localities/' + geoid);
 }
 
 /**
@@ -32,7 +32,7 @@ function getLocalityInfo(geoid) {
  * @return {Q.Promise<?>}
  */
 function getCitiesList(geoid) {
-    return weatherRequest('/localities/' + geoid + '/cities')
+    return weatherRequest('/localities/' + geoid + '/cities');
 }
 
 /**
@@ -40,7 +40,7 @@ function getCitiesList(geoid) {
  * @return {Q.Promise<?>}
  */
 function getProvincesList(geoid) {
-    return weatherRequest('/localities/' + geoid + '/provinces')
+    return weatherRequest('/localities/' + geoid + '/provinces');
 }
 
 /**
@@ -48,7 +48,7 @@ function getProvincesList(geoid) {
  * @return {Q.Promise<?>}
  */
 function getFactual(geoids) {
-    return weatherRequest('/factual?ids=' + geoids.join(','))
+    return weatherRequest('/factual?ids=' + geoids.join(','));
 }
 
 
@@ -57,4 +57,4 @@ module.exports = {
     getCitiesList: getCitiesList,
     getProvincesList: getProvincesList,
     getFactual: getFactual
-}
+};
