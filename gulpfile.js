@@ -24,16 +24,14 @@ gulp.task('concat-stylus', function() {
 });
 
 gulp.task('stylus-generate', function () {
-  gulp.src('./desktop.bundles/index.styl')
+  gulp.src('./desktop.bundles/index/index.styl')
     .pipe(stylus())
-    .pipe(gulp.dest('./desktop.bundles/index.index.css'));
+    .pipe(gulp.dest('./desktop.bundles/index/'));
 });
 
 
-gulp.task('concat',['concat-scripts', 'concat-stylus']);
-gulp.task('stylus',['stylus-generate']);
-
-
+gulp.task('styles', ['concat-stylus', 'stylus-generate']);
+gulp.task('scripts', ['concat-scripts']);
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['concat','stylus']);
+gulp.task('default', ['styles','scripts']);
