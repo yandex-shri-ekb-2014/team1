@@ -23,9 +23,8 @@ function getGeoIdByIp(req) {
         return parseString(body);
 
     }).then(function(result) {
-        var id = parseInt(result.info.region[0].$.id);
-        if (isNaN(id))
-            throw new TypeError('Bad geoId');
+        var id = parseInt(result.info.region[0].$.id, 10);
+        if (isNaN(id)) throw new TypeError('Bad geoId');
 
         return id;
     });
