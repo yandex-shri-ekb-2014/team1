@@ -22,7 +22,7 @@ module.exports = function(grunt) {
         trailing: true
       },
       files: ['server']
-    },
+    }
   })
 
   grunt.loadNpmTasks('grunt-contrib-jshint')
