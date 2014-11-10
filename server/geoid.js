@@ -1,6 +1,8 @@
-/* jshint camelcase:false */
+// jshint camelcase:false
+// jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 var getIpFromRequest = require('ipware')().get_ip;
-/* jshint camelcase:true */
+// jshint camelcase:true
+// jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 var request = require('request');
 var parseString = require('xml2js').parseString;
 var Q  = require('q');
@@ -24,7 +26,7 @@ function getGeoIdByIp(req) {
     return request(requestOpts).spread(function (response, body) {
         return parseString(body);
 
-    }).then(function(result) {
+    }).then(function (result) {
         var id = parseInt(result.info.region[0].$.id, 10);
         if (isNaN(id)) { throw new TypeError('Bad geoId'); }
 
