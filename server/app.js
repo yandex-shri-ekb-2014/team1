@@ -8,17 +8,17 @@ var weatherAPI = require('./weather');
 var app = express();
 
 app.use(morgan('combined'));
-app.use('/static',  express.static(__dirname + '/../desktop.bundles'));
+app.use('/static', express.static(__dirname + '/../desktop.bundles'));
 
 
 app.get('/', function (req, res) {
-    geoid.getByIp(req).then(function(regionId) {
+    geoid.getByIp(req).then(function (regionId) {
         return weatherAPI.getLocalityInfo(regionId);
 
-    }).then(function(data) {
+    }).then(function (data) {
         res.send(data);
 
-    }).catch(function(error) {
+    }).catch(function (error) {
         console.error(error);
         res.sendStatus(500);
 

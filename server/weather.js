@@ -14,7 +14,7 @@ function weatherRequest(path) {
         json: true
     };
 
-    return request(requestOpts).spread(function(response, body) {
+    return request(requestOpts).spread(function (response, body) {
         return body;
     });
 }
