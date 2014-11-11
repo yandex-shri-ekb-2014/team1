@@ -5,6 +5,7 @@ var weather = require('./weather');
 
 
 /**
+ * @param {Server} server
  */
 function attach(server) {
     var io = socketio(server);

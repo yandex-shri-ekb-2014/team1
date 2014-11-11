@@ -58,7 +58,7 @@ function getFactual(geoids) {
 
 /**
  * @event WeatherKeeper#new
- * @type {Object} weather
+ * @param {Object} data
  */
 
 /**
