@@ -11,19 +11,29 @@ var autoprefixer = require('gulp-autoprefixer');
 var uglifyjs = require('gulp-uglify');
 var minifycss = require('gulp-minify-css');
 var rimraf = require('gulp-rimraf');
+var mocha = require('gulp-mocha');
+var browserify = require('gulp-browserify');
 
 
 // Set paths
 var blocksPath = './blocks/**/*';
 var publicPath = './desktop.bundles/index/';
+var appPath = 'server/app.js';
+var testPath = 'server/test.js';
+var scriptsPaths = [
+    'gulpfile.js',
+    './server/*.js',
+    './blocks/**/*.js'
+];
+
 
 
 // Include scripts task ( concat + uglify )
-gulp.task('scripts', function () {
-    gulp.src(blocksPath + '.js')
-        .pipe(concat('index.js'))
-        .pipe(uglifyjs())
-        .pipe(gulp.dest(publicPath));
+gulp.task('scripts', function() {
+    return gulp.src(appPath)
+    .pipe(browserify({insertGlobals : true, debug : !process.env.production}))
+    .pipe(uglifyjs())
+    .pipe(gulp.dest(publicPath))
 });
 
 
@@ -40,14 +50,16 @@ gulp.task('styles', function () {
 });
 
 
+// Include mocha task
+gulp.task('mocha', function () {
+    return gulp.src(testPath, {read: false})
+        .pipe(mocha({reporter: 'nyan'}));
+});
+
+
 // Include js jshint task
 gulp.task('jshint', function () {
-    var paths = [
-        'gulpfile.js',
-        './server/*.js',
-        './blocks/**/*.js'
-    ];
-    return gulp.src(paths)
+    return gulp.src(scriptsPaths)
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'))
         .pipe(jscs());
@@ -74,4 +86,4 @@ gulp.task('clear', function () {
 
 
 // Default task
-gulp.task('default', ['styles', 'scripts', 'watch']);
+gulp.task('default', ['styles', 'scripts', 'mocha' , 'watch']);
