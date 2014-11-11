@@ -21,6 +21,16 @@ if (argv.help) {
 }
 
 
-require('./app').listen(argv.port, argv.host, function () {
+var express = require('express');
+var morgan = require('morgan');
+
+
+var app = express();
+
+app.use(morgan('combined'));
+app.use('', require('./http').router);
+
+var server = app.listen(argv.port, argv.host, function () {
     console.info('Server running on %s:%s', argv.host, argv.port);
 });
+require('./websocket').attach(server);

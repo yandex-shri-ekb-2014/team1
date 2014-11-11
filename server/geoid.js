@@ -1,8 +1,3 @@
-// jshint camelcase:false
-// jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-var getIpFromRequest = require('ipware')().get_ip;
-// jshint camelcase:true
-// jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 var request = require('request');
 var parseString = require('xml2js').parseString;
 var Q  = require('q');
@@ -12,15 +7,13 @@ parseString = Q.nbind(parseString);
 
 
 /**
- * @param {Request} req
+ * @param {string} ipAddress
  * @return {Q.Promise<number>}
  */
-function getGeoIdByIp(req) {
+function getGeoIdByIp(ipAddress) {
     var requestOpts = {
         url: 'http://export.yandex.ru/bar/reginfo.xml',
-        headers: {
-            'x-forwarded-for': getIpFromRequest(req).clientIp
-        }
+        headers: {'x-forwarded-for': ipAddress}
     };
 
     return request(requestOpts).spread(function (response, body) {
@@ -34,6 +27,4 @@ function getGeoIdByIp(req) {
     });
 }
 
-module.exports = {
-    getByIp: getGeoIdByIp
-};
+module.exports.getByIp = getGeoIdByIp;
