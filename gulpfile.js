@@ -57,13 +57,21 @@ gulp.task('mocha', function () {
 });
 
 
-// Include js jshint task
+// Include jshint task
 gulp.task('jshint', function () {
     return gulp.src(scriptsPaths)
         .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'))
+        .pipe(jshint.reporter('jshint-stylish'));
+});
+
+// Include jscs task
+gulp.task('jscs', function () {
+    return gulp.src(scriptsPaths)
         .pipe(jscs());
 });
+
+// Include lint task
+gulp.task('lint', ['jshint', 'jscs']);
 
 
 // Include js & css watch task

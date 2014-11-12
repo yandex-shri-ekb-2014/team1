@@ -5,5 +5,5 @@ node_js:
   - "0.11"
   - "0.10"
 env:
-  - TEST_SUITE=lint
+  - TEST_SUITE=jshint
 script: "gulp $TEST_SUITE"
