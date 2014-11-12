@@ -94,4 +94,4 @@ gulp.task('clear', function () {
 
 
 // Default task
-gulp.task('default', ['styles', 'scripts', 'mocha' , 'watch']);
+gulp.task('default', ['styles', 'scripts', 'mocha' , 'lint' , 'watch']);
