@@ -78,7 +78,7 @@ function attach(server) {
                 subscribeRunning = false;
                 if (subscribeQueue > 0) { subscribeQueue.pop().resolve(); }
 
-            }).done(function() {
+            }).done(function () {
                 sendData({id: requestId, result: 'ok'});
 
             }, function (error) {
@@ -88,16 +88,17 @@ function attach(server) {
         }
 
         /**
+         * @param {number} requestId
          * @param {number} geoid
          */
         function getWeather(requestId, geoid) {
             weather.getLocalityInfo(geoid).done(function (data) {
-                sendData({id: requestId, result: data})
+                sendData({id: requestId, result: data});
 
             }, function (error) {
-                sendData({id: requestId, error: error.message})
+                sendData({id: requestId, error: error.message});
 
-            })
+            });
         }
 
         socket.on('message', function (request) {

@@ -25,7 +25,7 @@ function getGeoidByIp(ipAddress) {
 
     }).then(function (result) {
         var id = parseInt(result.info.region[0].$.id, 10);
-        if (isNaN(id)) { throw new TypeError('Can\'t get geoid'); }
+        if (isNaN(id)) { throw new TypeError('Can\'t get GeoID'); }
 
         return id;
     });
@@ -38,9 +38,9 @@ function getGeoidByIp(ipAddress) {
 function checkGeoid(geoid) {
     return weather.getFactual([geoid]).then(function (response) {
         var isGood = _.isArray(response) && response.length === 1 && response[0].geoid === geoid;
-        if (isGood) { return }
+        if (isGood) { return; }
 
-        throw new Error('Invalid region GeoID')
+        throw new Error('Invalid region GeoID');
     });
 }
 

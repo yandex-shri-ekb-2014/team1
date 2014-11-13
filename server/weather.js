@@ -2,25 +2,38 @@ var crypto = require('crypto');
 var events = require('events');
 var inherits = require('util').inherits;
 
+var LRU = require('lru-cache');
 var _ = require('lodash');
 var request = require('request');
 var Q = require('q');
 
 request = Q.nbind(request);
 
+
+var weatherLRU = LRU({max: 1000, maxAge: 30000});
+var weatherRequestPromises = {};
+
 /**
  * @param {string} path
  * @return {Q.Promise<?>}
  */
 function weatherRequest(path) {
-    var requestOpts = {
-        url: 'http://ekb.shri14.ru/api' + path,
-        json: true
-    };
+    var url = 'http://ekb.shri14.ru/api' + path;
 
-    return request(requestOpts).spread(function (response, body) {
-        return body;
-    });
+    if (!_.isUndefined(weatherLRU.get(url))) {
+        return Q(weatherLRU.get(url));
+    }
+
+    if (_.isUndefined(weatherRequestPromises[url])) {
+        var requestOpts = {url: url, json: true};
+        weatherRequestPromises[url] = request(requestOpts).spread(function (response, body) {
+            weatherLRU.set(url, body);
+            delete weatherRequestPromises[url];
+            return body;
+        });
+    }
+
+    return weatherRequestPromises[url];
 }
 
 /**
@@ -30,11 +43,11 @@ function weatherRequest(path) {
 function getLocalityInfo(geoid) {
     return weatherRequest('/localities/' + geoid).then(function (data) {
         if (data.message === 'Invalid region GeoID') {
-            throw new Error('Invalid region GeoID')
+            throw new Error('Invalid region GeoID');
         }
 
-        return data
-    })
+        return data;
+    });
 }
 
 /**
