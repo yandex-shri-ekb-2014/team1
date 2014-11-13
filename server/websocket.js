@@ -29,7 +29,7 @@ function attach(server) {
          * @param {Object} data
          */
         function subscribeCallback(data) {
-            sendData({id: null, method: 'subscribe', result: data});
+            sendData({id: null, method: 'weather.subscribe', result: data});
         }
 
         /**
@@ -62,9 +62,7 @@ function attach(server) {
             promise.then(function () {
                 return checkGeoid(geoid);
 
-            }).then(function (isGoodGeoid) {
-                if (!isGoodGeoid) { throw new Error('Bad geoid'); }
-
+            }).then(function () {
                 if (currentGeoid !== null) { unsubscribeGeoid(currentGeoid); }
 
                 currentGeoid = geoid;
@@ -76,16 +74,30 @@ function attach(server) {
                 subscribeCount[geoid] += 1;
                 weatherKeepers[geoid].on('new', subscribeCallback);
 
-                sendData({id: requestId, result: 'ok'});
-
-            }).catch(function (error) {
-                sendData({id: requestId, error: error.message});
-
             }).finally(function () {
                 subscribeRunning = false;
                 if (subscribeQueue > 0) { subscribeQueue.pop().resolve(); }
 
-            }).done();
+            }).done(function() {
+                sendData({id: requestId, result: 'ok'});
+
+            }, function (error) {
+                sendData({id: requestId, error: error.message});
+
+            });
+        }
+
+        /**
+         * @param {number} geoid
+         */
+        function getWeather(requestId, geoid) {
+            weather.getLocalityInfo(geoid).done(function (data) {
+                sendData({id: requestId, result: data})
+
+            }, function (error) {
+                sendData({id: requestId, error: error.message})
+
+            })
         }
 
         socket.on('message', function (request) {
@@ -103,7 +115,11 @@ function attach(server) {
                 return sendData({error: 'syntax error'});
             }
 
-            if (method === 'subscribe' && _.isArray(params)) {
+            if (method === 'weather.get' && _.isArray(params)) {
+                return getWeather(requestId, params[0]);
+            }
+
+            if (method === 'weather.subscribe' && _.isArray(params)) {
                 return subscribeGeoid(requestId, params[0]);
             }
 

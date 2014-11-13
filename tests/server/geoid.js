@@ -27,24 +27,22 @@ describe('server.geoid', function () {
     });
 
     it('checkGeoid good', function (done) {
-        geoid.checkGeoid(54).then(function (isGood) {
-            expect(isGood).to.equal(true);
-            done();
-
-        }).catch(function (error) {
-            done(error);
-
-        }).done();
+        geoid.checkGeoid(54).done(done, done);
     });
 
     it('checkGeoid bad', function (done) {
-        geoid.checkGeoid(0).then(function (isGood) {
-            expect(isGood).to.equal(false);
-            done();
+        geoid.checkGeoid(0).done(function () {
+            done(new Error('Zero geoid must be invalid'));
 
-        }).catch(function (error) {
-            done(error);
+        }, function (error) {
+            if (error.message === 'Invalid region GeoID') {
+                done();
 
-        }).done();
+            } else {
+                done(error);
+
+            }
+
+        });
     });
 });

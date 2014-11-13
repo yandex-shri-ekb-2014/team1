@@ -28,7 +28,13 @@ function weatherRequest(path) {
  * @return {Q.Promise<?>}
  */
 function getLocalityInfo(geoid) {
-    return weatherRequest('/localities/' + geoid);
+    return weatherRequest('/localities/' + geoid).then(function (data) {
+        if (data.message === 'Invalid region GeoID') {
+            throw new Error('Invalid region GeoID')
+        }
+
+        return data
+    })
 }
 
 /**
