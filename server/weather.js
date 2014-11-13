@@ -57,6 +57,11 @@ function getFactual(geoids) {
 
 
 /**
+ * @event WeatherKeeper#error
+ * @param {Error} error
+ */
+
+/**
  * @event WeatherKeeper#new
  * @param {Object} data
  */
@@ -79,7 +84,7 @@ function WeatherKeeper(geoid, syncInterval) {
         weatherHash: null
     };
 
-    setTimeout(this._sync.bind(this), this._syncInterval);
+    this._sync();
 }
 
 inherits(WeatherKeeper, events.EventEmitter);
@@ -99,6 +104,9 @@ WeatherKeeper.prototype._sync = function () {
             self._state.weatherHash = dataHash;
             self.emit('new', data);
         }
+
+    }).catch(function (error) {
+        self.emit('error', error);
 
     }).finally(function () {
         setTimeout(self._sync.bind(self), self._syncInterval);
