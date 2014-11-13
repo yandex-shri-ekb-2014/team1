@@ -28,7 +28,9 @@ function attach(server) {
         /**
          * @param {Object} data
          */
-        function subscribeCallback(data) { sendData({id: null, result: data}); }
+        function subscribeCallback(data) {
+            sendData({id: null, method: 'subscribe', result: data});
+        }
 
         /**
          * @param {number} geoid

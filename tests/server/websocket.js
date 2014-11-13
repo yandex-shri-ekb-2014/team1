@@ -93,6 +93,7 @@ describe('server.websocket', function () {
 
             var data = JSON.parse(msg);
             expect(data.id).to.equal(null);
+            expect(data.method).to.equal('subscribe');
 
             expect(data.result).to.be.an('object');
             expect(data.result).to.have.deep.property('info.geoid').and.equal(54);
