@@ -84,7 +84,7 @@ function WeatherKeeper(geoid, syncInterval) {
         weatherHash: null
     };
 
-    this._sync();
+    process.nextTick(this._sync.bind(this));
 }
 
 inherits(WeatherKeeper, events.EventEmitter);
