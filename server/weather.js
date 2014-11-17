@@ -2,25 +2,50 @@ var crypto = require('crypto');
 var events = require('events');
 var inherits = require('util').inherits;
 
+var LRU = require('lru-cache');
 var _ = require('lodash');
 var request = require('request');
 var Q = require('q');
 
 request = Q.nbind(request);
 
+
+var weatherLRU = LRU({max: 1000, maxAge: 30000});
+var weatherRequestPromises = {};
+
 /**
  * @param {string} path
  * @return {Q.Promise<?>}
  */
 function weatherRequest(path) {
-    var requestOpts = {
-        url: 'http://ekb.shri14.ru/api' + path,
-        json: true
-    };
+    var url = 'http://ekb.shri14.ru/api' + path;
 
-    return request(requestOpts).spread(function (response, body) {
-        return body;
-    });
+    var cachedResponse = weatherLRU.get(url);
+    if (!_.isUndefined(cachedResponse)) {
+        return Q(cachedResponse);
+    }
+
+    if (_.isUndefined(weatherRequestPromises[url])) {
+        var requestOpts = {url: url, json: true};
+        weatherRequestPromises[url] = request(requestOpts).spread(function (response, body) {
+            weatherLRU.set(url, body);
+            delete weatherRequestPromises[url];
+            return body;
+        });
+    }
+
+    return weatherRequestPromises[url];
+}
+
+/**
+ * @param {Object} data
+ * @return {Object}
+ * @throws {Error} If data.message exists
+ */
+function checkWeatherRequest(data) {
+    if (_.isUndefined(data.message)) { return data; }
+
+    throw new Error(data.message);
 }
 
 /**
@@ -28,7 +53,7 @@ function weatherRequest(path) {
  * @return {Q.Promise<?>}
  */
 function getLocalityInfo(geoid) {
-    return weatherRequest('/localities/' + geoid);
+    return weatherRequest('/localities/' + geoid).then(checkWeatherRequest);
 }
 
 /**
@@ -36,7 +61,7 @@ function getLocalityInfo(geoid) {
  * @return {Q.Promise<?>}
  */
 function getCitiesList(geoid) {
-    return weatherRequest('/localities/' + geoid + '/cities');
+    return weatherRequest('/localities/' + geoid + '/cities').then(checkWeatherRequest);
 }
 
 /**
@@ -44,7 +69,7 @@ function getCitiesList(geoid) {
  * @return {Q.Promise<?>}
  */
 function getProvincesList(geoid) {
-    return weatherRequest('/localities/' + geoid + '/provinces');
+    return weatherRequest('/localities/' + geoid + '/provinces').then(checkWeatherRequest);
 }
 
 /**
@@ -52,9 +77,28 @@ function getProvincesList(geoid) {
  * @return {Q.Promise<?>}
  */
 function getFactual(geoids) {
-    return weatherRequest('/factual?ids=' + geoids.join(','));
+    geoids = _.sortBy(geoids);
+
+    return weatherRequest('/factual?ids=' + geoids.join(',')).then(function (data) {
+        if (!_.isArray(data)) { throw new TypeError('Bad response'); }
+
+        var isGoodData = _.chain(data)
+            .pluck('geoid')
+            .sortBy()
+            .isEqual(geoids)
+            .value();
+
+        if (!isGoodData) { throw new Error('Invalid region GeoID'); }
+
+        return data;
+    });
 }
 
+
+/**
+ * @event WeatherKeeper#error
+ * @param {Error} error
+ */
 
 /**
  * @event WeatherKeeper#new
@@ -79,7 +123,7 @@ function WeatherKeeper(geoid, syncInterval) {
         weatherHash: null
     };
 
-    setTimeout(this._sync.bind(this), this._syncInterval);
+    process.nextTick(this._sync.bind(this));
 }
 
 inherits(WeatherKeeper, events.EventEmitter);
@@ -99,6 +143,9 @@ WeatherKeeper.prototype._sync = function () {
             self._state.weatherHash = dataHash;
             self.emit('new', data);
         }
+
+    }).catch(function (error) {
+        self.emit('error', error);
 
     }).finally(function () {
         setTimeout(self._sync.bind(self), self._syncInterval);

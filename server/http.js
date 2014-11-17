@@ -16,7 +16,7 @@ router.use('/static', express.static(__dirname + '/../desktop.bundles'));
 router.get('/', function (req, res) {
     var clientIp = getIpFromRequest(req).clientIp;
 
-    geoid.getByIp(clientIp).then(function (regionId) {
+    geoid.getGeoidByIp(clientIp).then(function (regionId) {
         return weatherAPI.getLocalityInfo(regionId);
 
     }).then(function (data) {
