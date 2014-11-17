@@ -76,7 +76,7 @@ function attach(server) {
 
             }).finally(function () {
                 subscribeRunning = false;
-                if (subscribeQueue > 0) { subscribeQueue.pop().resolve(); }
+                if (subscribeQueue.length > 0) { subscribeQueue.pop().resolve(); }
 
             }).done(function () {
                 sendData({id: requestId, result: 'ok'});

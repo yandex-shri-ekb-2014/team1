@@ -5,15 +5,19 @@ var weather = require('../../server/weather');
 
 describe('server.weather', function () {
     it('getLocalityInfo', function (done) {
-        weather.getLocalityInfo(54).then(function (data) {
+        weather.getLocalityInfo(54).done(function (data) {
             expect(data).to.be.an('object');
             expect(data).to.have.deep.property('info.geoid').and.equal(54);
             done();
 
-        }).catch(function (error) {
-            done(error);
+        }, done);
+    });
 
-        }).done();
+    it('getLocalityInfo invalid GeoID', function (done) {
+        weather.getLocalityInfo(-1).done(done, function (error) {
+            if (error.message === 'Invalid region GeoID') { return done(); }
+            done(error);
+        });
     });
 
     it('getFactual', function (done) {
@@ -24,21 +28,14 @@ describe('server.weather', function () {
             expect(data[0]).to.have.property('temp').and.to.be.a('number');
             done();
 
-        }).catch(function (error) {
-            done(error);
-
-        }).done();
+        }, done);
     });
 
-    it('getFactual2', function (done) {
-        weather.getFactual([0]).then(function (data) {
-            expect(data).to.be.an('array').and.to.have.length(0);
-            done();
-
-        }).catch(function (error) {
+    it('getFactual invalid GeoID', function (done) {
+        weather.getFactual([0]).then(done, function (error) {
+            if (error.message === 'Invalid region GeoID') { return done(); }
             done(error);
-
-        }).done();
+        });
     });
 
     it('WeatherKeeper wait `new` event', function (done) {

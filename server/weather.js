@@ -20,8 +20,9 @@ var weatherRequestPromises = {};
 function weatherRequest(path) {
     var url = 'http://ekb.shri14.ru/api' + path;
 
-    if (!_.isUndefined(weatherLRU.get(url))) {
-        return Q(weatherLRU.get(url));
+    var cachedResponse = weatherLRU.get(url);
+    if (!_.isUndefined(cachedResponse)) {
+        return Q(cachedResponse);
     }
 
     if (_.isUndefined(weatherRequestPromises[url])) {
@@ -37,17 +38,22 @@ function weatherRequest(path) {
 }
 
 /**
+ * @param {Object} data
+ * @return {Object}
+ * @throws {Error} If data.message exists
+ */
+function checkWeatherRequest(data) {
+    if (_.isUndefined(data.message)) { return data; }
+
+    throw new Error(data.message);
+}
+
+/**
  * @param {number} geoid
  * @return {Q.Promise<?>}
  */
 function getLocalityInfo(geoid) {
-    return weatherRequest('/localities/' + geoid).then(function (data) {
-        if (data.message === 'Invalid region GeoID') {
-            throw new Error('Invalid region GeoID');
-        }
-
-        return data;
-    });
+    return weatherRequest('/localities/' + geoid).then(checkWeatherRequest);
 }
 
 /**
@@ -55,7 +61,7 @@ function getLocalityInfo(geoid) {
  * @return {Q.Promise<?>}
  */
 function getCitiesList(geoid) {
-    return weatherRequest('/localities/' + geoid + '/cities');
+    return weatherRequest('/localities/' + geoid + '/cities').then(checkWeatherRequest);
 }
 
 /**
@@ -63,7 +69,7 @@ function getCitiesList(geoid) {
  * @return {Q.Promise<?>}
  */
 function getProvincesList(geoid) {
-    return weatherRequest('/localities/' + geoid + '/provinces');
+    return weatherRequest('/localities/' + geoid + '/provinces').then(checkWeatherRequest);
 }
 
 /**
@@ -71,7 +77,21 @@ function getProvincesList(geoid) {
  * @return {Q.Promise<?>}
  */
 function getFactual(geoids) {
-    return weatherRequest('/factual?ids=' + geoids.join(','));
+    geoids = _.sortBy(geoids);
+
+    return weatherRequest('/factual?ids=' + geoids.join(',')).then(function (data) {
+        if (!_.isArray(data)) { throw new TypeError('Bad response'); }
+
+        var isGoodData = _.chain(data)
+            .pluck('geoid')
+            .sortBy()
+            .isEqual(geoids)
+            .value();
+
+        if (!isGoodData) { throw new Error('Invalid region GeoID'); }
+
+        return data;
+    });
 }
 
 
