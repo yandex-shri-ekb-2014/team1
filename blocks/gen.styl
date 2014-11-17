@@ -1,13 +1,23 @@
 html
     margin 0
     padding 0
+    height 100%
 
 body
+    position relative
     min-width 1024px
     max-width 1600px
     margin 0 auto
-    padding 0 25px 20px
+    padding 0 25px
     font-family $standartFont
+    min-height 100%
+    height auto
+
+.link
+    text-decoration none
+
+.link:hover
+    text-decoration underline
 
 clearfix()
     zoom: 1 if ie
