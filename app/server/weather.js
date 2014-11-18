@@ -117,6 +117,7 @@ function WeatherKeeper(geoid, syncInterval) {
 
     this._geoid = geoid;
     this._syncInterval = syncInterval;
+    this._timeoutId = null;
 
     this._state = {
         isActive: true,
@@ -132,6 +133,7 @@ inherits(WeatherKeeper, events.EventEmitter);
  */
 WeatherKeeper.prototype._sync = function () {
     var self = this;
+    self._timeoutId = null;
 
     if (self._state.isActive === false) { return; }
 
@@ -148,7 +150,8 @@ WeatherKeeper.prototype._sync = function () {
         self.emit('error', error);
 
     }).finally(function () {
-        setTimeout(self._sync.bind(self), self._syncInterval);
+        if (self._state.isActive === true)
+            self._timeoutId = setTimeout(self._sync.bind(self), self._syncInterval);
 
     });
 };
@@ -157,6 +160,9 @@ WeatherKeeper.prototype._sync = function () {
  */
 WeatherKeeper.prototype.stop = function () {
     this._state.isActive = false;
+
+    if (this._timeoutId !== null)
+        clearTimeout(this._timeoutId)
 };
 
 

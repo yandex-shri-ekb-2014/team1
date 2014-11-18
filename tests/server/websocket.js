@@ -15,7 +15,7 @@ describe('server.websocket', function () {
         var deferred = Q.defer();
         deferred.promise.done(done, done);
 
-        server = spawn('node', ['server/server', '--port', '8001']);
+        server = spawn('node', ['server.js', '--port', '8001']);
         server.stdout.on('data', function (data) {
             if (data.toString().indexOf('localhost:8001') === -1) { return; }
 

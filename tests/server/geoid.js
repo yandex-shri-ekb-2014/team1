@@ -1,6 +1,6 @@
 var expect = require('chai').expect;
 
-var geoid = require('../../server/geoid');
+var geoid = require('../../app/server/geoid');
 
 
 describe('server.geoid', function () {
