@@ -36,7 +36,7 @@
   "debug"         : false,     // Allow debugger statements e.g. browser breakpoints.
   "eqnull"        : false,     // Tolerate use of `== null`
   "es5"           : false,     // Allow ES5 syntax (ex: getters and setters)
-  "esnext"        : false,     // Allow ES.next (ES6) syntax (ex: `const`)
+  "esnext"        : true,     // Allow ES.next (ES6) syntax (ex: `const`)
   "evil"          : false,     // Tolerate use of `eval` and `new Function()`
   "expr"          : false,     // Tolerate `ExpressionStatement` as Programs
   "funcscope"     : false,     // Tolerate defining variables inside control statements
