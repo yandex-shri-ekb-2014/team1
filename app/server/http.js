@@ -11,18 +11,13 @@ var weatherAPI = require('./weather');
 
 var router = express.Router();
 
-router.use('/static', express.static(__dirname + '/../desktop.bundles'));
-
 router.get('/', function (req, res) {
     var clientIp = getIpFromRequest(req).clientIp;
 
-    geoid.getGeoidByIp(clientIp).then(function (regionId) {
-        return weatherAPI.getLocalityInfo(regionId);
+    geoid.getGeoidByIp(clientIp).done(function (geoid) {
+        res.render('index', {data: {geoid: geoid}});
 
-    }).then(function (data) {
-        res.send(data);
-
-    }).catch(function (error) {
+    }, function (error) {
         console.error(error);
         res.sendStatus(500);
 

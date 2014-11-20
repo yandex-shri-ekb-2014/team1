@@ -1,6 +1,6 @@
 var expect = require('chai').expect;
 
-var weather = require('../../server/weather');
+var weather = require('../../app/server/weather');
 
 
 describe('server.weather', function () {

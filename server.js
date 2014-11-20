@@ -27,10 +27,15 @@ var morgan = require('morgan');
 
 var app = express();
 
+app.set('views', './app/views')
+app.set('view engine', 'jade')
+
 app.use(morgan('combined'));
-app.use('', require('./http').router);
+
+app.use('', require('./app/server/http').router);
+app.use('/static', express.static('./desktop.bundles/index'));
 
 var server = app.listen(argv.port, argv.host, function () {
     console.info('Server running on %s:%s', argv.host, argv.port);
 });
-require('./websocket').attach(server);
+require('./app/server/websocket').attach(server);
