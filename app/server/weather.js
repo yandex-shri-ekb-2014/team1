@@ -150,8 +150,9 @@ WeatherKeeper.prototype._sync = function () {
         self.emit('error', error);
 
     }).finally(function () {
-        if (self._state.isActive === true)
+        if (self._state.isActive === true) {
             self._timeoutId = setTimeout(self._sync.bind(self), self._syncInterval);
+        }
 
     });
 };
@@ -160,9 +161,7 @@ WeatherKeeper.prototype._sync = function () {
  */
 WeatherKeeper.prototype.stop = function () {
     this._state.isActive = false;
-
-    if (this._timeoutId !== null)
-        clearTimeout(this._timeoutId)
+    if (this._timeoutId !== null) { clearTimeout(this._timeoutId); }
 };
 
 

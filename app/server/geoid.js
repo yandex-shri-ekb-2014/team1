@@ -3,6 +3,7 @@ var request = require('request');
 var parseString = require('xml2js').parseString;
 var Q  = require('q');
 
+var geoidList = require('./geoid.json');
 var weather = require('./weather');
 
 
@@ -36,16 +37,34 @@ function getGeoidByIp(ipAddress) {
  * @return {Q.Promise}
  */
 function checkGeoid(geoid) {
-    return weather.getFactual([geoid]).then(function (response) {
-        var isGood = _.isArray(response) && response.length === 1 && response[0].geoid === geoid;
-        if (isGood) { return; }
+    return weather.getFactual([geoid]).then(function () {});
+}
 
-        throw new Error('Invalid region GeoID');
-    });
+
+/**
+ * @param {number} geoid
+ * @return {?string}
+ */
+function getTranslitCityNameByGeoid(geoid) {
+    var record = _.find(geoidList, {geoid: geoid});
+    if (_.isUndefined(record)) { return null; }
+    return record.translit;
+}
+
+/**
+ * @param {string} cityName
+ * @return {?number}
+ */
+function getGeoidByTranslitCityName(cityName) {
+    var record = _.find(geoidList, {translit: cityName});
+    if (_.isUndefined(record)) { return null; }
+    return record.geoid;
 }
 
 
 module.exports = {
     getGeoidByIp: getGeoidByIp,
-    checkGeoid: checkGeoid
+    checkGeoid: checkGeoid,
+    getTranslitCityNameByGeoid: getTranslitCityNameByGeoid,
+    getGeoidByTranslitCityName: getGeoidByTranslitCityName
 };

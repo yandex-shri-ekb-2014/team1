@@ -10,6 +10,7 @@ var GeoIDEcho = React.createClass({
 });
 
 window.onload = function () {
-    var geoid = JSON.parse(document.getElementById("initial-data").innerHTML).geoid;
-    React.render(<GeoIDEcho geoid={geoid} />, document.body);
+    var data = JSON.parse(document.getElementById("initial-data").innerHTML);
+    console.log(data);
+    //React.render(<GeoIDEcho geoid={data.geoid} />, document.body);
 }
