@@ -1,11 +1,19 @@
 var Q = require('q');
-var weatherAPI = require('./server/weather');
+var translit = require('translitit-cyrillic-russian-to-latin');
+var weatherAPI = require('./app/server/weather');
 
 
 var countries = [
-    {geoid: 225, name: 'Россия'}
+    {geoid: 84,    name: 'США'},
+    {geoid: 94,    name: 'Бразилия'},
+    {geoid: 149,   name: 'Белоруссия'},
+    {geoid: 187,   name: 'Украина'},
+    {geoid: 225,   name: 'Россия'},
+    {geoid: 995,   name: 'Тайланд'},
+    {geoid: 10017, name: 'Куба'}
 ];
 
+var printedCities = {};
 
 /**
  * @param {string} name
@@ -20,8 +28,13 @@ function printObject(name, geoid, parent, isCountry, isProvince, isCity, comma) 
     if (typeof comma === 'undefined') { comma = true; }
     if (comma === true) { process.stdout.write(','); }
 
+    var tname = translit(name).toLowerCase().replace(/ /g, '');
+    if (printedCities[tname]) { tname += geoid; }
+    printedCities[tname] = true;
+
     var string = JSON.stringify({
         name: name,
+        translit: tname,
         geoid: geoid,
         parent: parent,
         isCountry: isCountry,
@@ -32,30 +45,50 @@ function printObject(name, geoid, parent, isCountry, isProvince, isCity, comma) 
     process.stdout.write('\n  ' + string);
 }
 
-
-Q.spawn(function* main() {
-    try {
-        process.stdout.write('[');
-        for (var cIndex = 0; cIndex < countries.length; cIndex += 1) {
-            var country = countries[cIndex];
-            printObject(country.name, country.geoid, null, true, false, false, cIndex !== 0);
-
-            var provinces = yield weatherAPI.getProvincesList(country.geoid);
-            for (var pIndex = 0; pIndex < provinces.length; pIndex += 1) {
-                var province = provinces[pIndex];
-                printObject(province.name, province.geoid, country.geoid, false, true, false);
-
-                var cities = yield weatherAPI.getCitiesList(province.geoid);
-                for (var ciIndex = 0; ciIndex < cities.length; ciIndex += 1) {
-                    var city = cities[ciIndex];
-                    printObject(city.name, city.geoid, province.geoid, false, false, true);
-                }
-            }
-        }
-        process.stdout.write('\n]\n');
-
-    } catch (e) {
-        console.error(e);
-
+/**
+ * @param {{geoid: number, name: string}} country
+ * @param {{geoid: number, name: string}[]} provinces
+ * @return {Q.Promise}
+ */
+function getCities(country, provinces) {
+    var isFakeProvince = false;
+    if (provinces.length === 0) {
+        provinces = [country];
+        isFakeProvince = true;
     }
+
+    return provinces.reduce(function (prev, province) {
+        return prev.then(function () {
+            if (!isFakeProvince) {
+                printObject(province.name, province.geoid, country.geoid, false, true, false);
+            }
+
+            return weatherAPI.getCitiesList(province.geoid);
+
+        }).then(function (cities) {
+            cities.forEach(function (city) {
+                printObject(city.name, city.geoid, province.geoid, false, false, true);
+            });
+        });
+
+    }, Q());
+}
+
+process.stdout.write('[');
+countries.reduce(function (prev, country, index) {
+    return prev.then(function () {
+        printObject(country.name, country.geoid, null, true, false, false, index !== 0);
+        return weatherAPI.getProvincesList(country.geoid);
+
+    }).then(function (provinces) {
+        return getCities(country, provinces);
+
+    });
+
+}, Q()).done(function () {
+    process.stdout.write('\n]\n');
+
+}, function (error) {
+    console.log(error);
+
 });

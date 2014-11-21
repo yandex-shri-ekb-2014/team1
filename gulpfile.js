@@ -25,6 +25,7 @@ var testPath = [
 ];
 var scriptsPaths = [
     'gulpfile.js',
+    'geoid.js',
     './server/*.js',
     './app/blocks/**/*.js'
 ];
