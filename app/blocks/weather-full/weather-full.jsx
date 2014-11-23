@@ -20,7 +20,6 @@ var MonthNames = [
 
 var WeatherFullOneDay = React.createClass({
     render: function () {
-        var key = 0;
         var rows = [];
         this.props.forecast.forEach(function (weather) {
             var date = moment(weather.date);
