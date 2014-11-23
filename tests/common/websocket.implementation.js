@@ -40,7 +40,7 @@ module.exports = function websocketImplementationTests(functions, socketObj) {
                 expect(msg).to.equal('{"id":0,"error":"unknow method"}');
                 done();
             });
-            socket.send('{"id": 0}');
+            socket.send('{"id": 0, "params": []}');
         });
 
         it('weather.get: bad getid', function (done) {
@@ -88,6 +88,33 @@ module.exports = function websocketImplementationTests(functions, socketObj) {
                 done();
             });
             socket.send('{"id": 0, "method": "weather.subscribe", "params": [54]}');
+        });
+
+        it('suggest: return one', function (done) {
+            socket.on('message', function (msg) {
+                expect(msg).to.equal(JSON.stringify({
+                    "id": 0,
+                    "result": [
+                        {
+                            "geoid": 54,
+                            "name": "Екатеринбург",
+                            "province": "Свердловская область",
+                            "country": "Россия",
+                            "relevance": 1000
+                        }
+                    ]
+                }));
+                done();
+            });
+            socket.send('{"id": 0, "method": "suggest", "params": ["екатеринбург"]}');
+        });
+
+        it('suggest: return empty', function (done) {
+            socket.on('message', function (msg) {
+                expect(msg).to.equal('{"id":0,"result":[]}');
+                done();
+            });
+            socket.send('{"id": 0, "method": "suggest", "params": ["екатеринбург1"]}');
         });
     });
 };

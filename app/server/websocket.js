@@ -47,10 +47,10 @@ function attach(server) {
         }
 
         /**
-         * @param {number} requestId
          * @param {number} geoid
+         * @return {Q.Promise}
          */
-        function subscribeGeoid(requestId, geoid) {
+        function subscribeGeoid(geoid) {
             var promise = Q();
 
             if (subscribeRunning) {
@@ -59,7 +59,7 @@ function attach(server) {
             }
             subscribeRunning = true;
 
-            promise.then(function () {
+            return promise.then(function () {
                 return checkGeoid(geoid);
 
             }).then(function () {
@@ -78,27 +78,7 @@ function attach(server) {
                 subscribeRunning = false;
                 if (subscribeQueue.length > 0) { subscribeQueue.pop().resolve(); }
 
-            }).done(function () {
-                sendData({id: requestId, result: 'ok'});
-
-            }, function (error) {
-                sendData({id: requestId, error: error.message});
-
-            });
-        }
-
-        /**
-         * @param {number} requestId
-         * @param {number} geoid
-         */
-        function getWeather(requestId, geoid) {
-            weather.getLocalityInfo(geoid).done(function (data) {
-                sendData({id: requestId, result: data});
-
-            }, function (error) {
-                sendData({id: requestId, error: error.message});
-
-            });
+            }).then(function () { return 'ok'; });
         }
 
         socket.on('message', function (request) {
@@ -112,19 +92,32 @@ function attach(server) {
             var method = request.method;
             var params = request.params;
 
-            if (_.isUndefined(requestId)) {
-                return sendData({error: 'syntax error'});
-            }
+            Q.fcall(function () {
+                if (_.isUndefined(requestId) || !_.isArray(params)) {
+                    throw new Error('syntax error');
+                }
 
-            if (method === 'weather.get' && _.isArray(params)) {
-                return getWeather(requestId, params[0]);
-            }
+                if (method === 'weather.get') {
+                    return weather.getLocalityInfo(params[0]);
+                }
 
-            if (method === 'weather.subscribe' && _.isArray(params)) {
-                return subscribeGeoid(requestId, params[0]);
-            }
+                if (method === 'weather.subscribe') {
+                    return subscribeGeoid(params[0]);
+                }
 
-            sendData({id: requestId, error: 'unknow method'});
+                if (method === 'suggest') {
+                    return weather.getSuggest(params[0]);
+                }
+
+                throw new Error('unknow method');
+
+            }).done(function (data) {
+                sendData({id: requestId, result: data});
+
+            }, function (error) {
+                sendData({id: requestId, error: error.message});
+
+            });
         });
 
         socket.on('disconnect', function () {
