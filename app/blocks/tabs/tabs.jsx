@@ -44,13 +44,13 @@ var Tabs = React.createClass({
             <div className="content__tabs">
                 <ul className="tabs">
                     <li className={this.itemClassName('short')}>
-                        <a href={this.itemHref('short')}>кратко</a>
+                        <a href={this.itemHref('short')}  className="tabs__link">кратко</a>
                     </li>
                     <li className={this.itemClassName('full')}>
-                        <a href={this.itemHref('full')}>подробно</a>
+                        <a href={this.itemHref('full')}  className="tabs__link">подробно</a>
                     </li>
                     <li className={this.itemClassName('climate')}>
-                        <a href={this.itemHref('climate')}>наглядно</a>
+                        <a href={this.itemHref('climate')} className="tabs__link">наглядно</a>
                     </li>
                 </ul>
             </div>
