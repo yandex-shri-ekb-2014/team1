@@ -7,7 +7,74 @@ html
   body
     header(style='height: 100px; background-color: #b5d592')
     div#content
+
+    section(style='height: 153px; line-height: 153px; text-align: center; background: #f6f5f3; margin-top: 40px;')
+        | Здесь будет находиться Директ.
+    section.resources
+        .resources__col
+            h1.resources__title Погода на карте
+            ul.resources__list
+                li
+                    a.link.resources__link(href='#') Центр России
+                li
+                    a.link.resources__link(href='#') Росссия
+                li
+                    a.link.resources__link(href='#') Европа
+        .resources__col
+            h1.resources__title Другие прогнозы
+            ul.resources__list
+                li
+                    a.link.resources__link(href='#') Гисметео
+                li
+                    a.link.resources__link(href='#') Гидрометцентр России
+                li
+                    a.link.resources__link(href='#') Weather.com
+        .resources__col
+            h1.resources__title Погода с собой
+            ul.resources__list
+                li
+                    a.link.resources__link(href='#') Информер
+                li
+                    a.link.resources__link(href='#') Настольный виджет
+                li
+                    a.link.resources__link(href='#') Погода в вашем браузере
+        .resources__col
+            h1.resources__title Другой вид
+            ul.resources__list
+                li
+                    a.link.resources__link(href='#') Виджет для Яндекса
+                li
+                    a.link.resources__link(href='#') В миниатюре
+
+    .footer-spacer
+
+    footer.footer
+        .footer__wrapper
+            .footer__col_1
+                .footer__block
+                    a.link.footer__link(href='#') Пользовательское соглашение
+                .footer__block
+                    a.link.footer__link(href='#') Мобильная версия
+            .footer__col_2
+                .footer__block Прогноз погоды: Екатеринбург и еще 12268 городов в 229 странах
+                .footer__block
+                    | Данные предоставлены
+                    a.link.footer__link(href='#') FORECA
+            .footer__col_3
+                .footer__block
+                    a.link.footer__link(href='#') Статистика
+                .footer__block
+                    a.link.footer__link(href='#') Обратная связь
+                .footer__block
+                    a.link.footer__link(href='#') Реклама
+            .footer__col_4
+                .footer__block
+                    | &copy; 2000-2014 &laquo;
+                    a.link.footer__link(href='#') Яндекс
+                    | &raquo;
+
     script(type='application/json' id='initial-data') !{JSON.stringify(data)}
     script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/react/0.12.1/react.min.js')
     script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js')
     script(type='text/javascript' src='/static/bundle.js')
+
