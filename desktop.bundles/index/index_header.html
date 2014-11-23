@@ -34,26 +34,49 @@
 		</div>
 	</header>
 	<div class="weather-detail">
-		<div class="weather-detail__detail">
-			<div class="detail">
-				<div class="detail__city">
-					<div class="city">
-						<h2 class="city__h2">Екатеринбург</h2>
-						<div class="city__list">
-							<div class="list">
-								<p class="list__active">Другой город <img src="active-arrow.png"></p>
-								<ul>
-									<li>Москва</li>
-									<li>Санкт-Петербург</li>
-									<li>Екатеринбург</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
+		<div class="weather-detail__select-city">
+			<h2 class="select-city__h2">Екатеринбург</h2>
+			<div class="city-list">
+				<p class="city-list__p">Другой город <img src="active-arrow.png"></p>
+				<ul class="city-list__ul">
+					<li class="city-list__ul_li_begin">Последние города</li>
+					<li class="city-list__ul_li_active">Москва</li>
+					<li>Санкт-Петербург</li>
+					<li>Екатеринбург</li>
+					<li class="city-list__ul_li_end">Все города</li>
+				</ul>
 			</div>
+			<table class="weather-detail__table-detail">
+				<tr class="table-detail__th">
+					<th class="table-detail__th_now">сейчас</th><th>днем</th><th>вечером</th><th>ночью</th><td></td>
+				</tr>
+				<tr class="table-detail__temp">
+					<td class="table-detail__temp_now vertical-align-bottom weather30">+30 °C</td><td class="vertical-align-bottom weather14">+15 °C</td><td class="vertical-align-bottom weather4">+4 °C</td><td class="vertical-align-bottom weather-2">−2 °C</td><td class="table-detail__more-info vertical-align-top" rowspan="2">Давление: 735 мм рт. ст.<br>
+					Ветер: северо-восточный, 2.7 м/с (9.7 км/ч)<br>
+					Влажность: 72%<br>
+					Восход: 06:36 Заход: 21:24<br>
+					<p class="table-detail__reg">Данные зарегистрированы недавно <a href="#"><img src="_.png"></a></p></td>
+				</tr>
+				<tr class="table-detail__tr_top">
+					<td class="table-detail__w-info weather30">
+						<img src="w-ico.png">малооблачно
+					</td>
+					<td class="weather14">
+						<img src="w-ico-min.png">
+					</td>
+					<td class="weather4">
+						<img src="w-ico-min.png">
+					</td>
+					<td class="weather-2">
+						<img src="w-ico-min.png">
+					</td>
+				</tr>
+				<tr><td class="table-detail__yesterday" colspan="5">вчера +10 °C</td></tr>
+			</table>
 		</div>
-		<div class="header__baner"></div>
+		<div class="weather-detail__rotater">
+			<img src="rotator.jpg">
+		</div>
 	</div>
 </body>
 </html>
