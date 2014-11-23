@@ -40,6 +40,13 @@ router.param('cityName', function (req, res, next, cityName) {
 });
 
 router.get('/:cityName', function (req, res) {
+    /*
+    var React = require('react');
+    require('node-jsx').install({extension: '.jsx'});
+    var Content = React.createFactory(require('../blocks/content/content.jsx'));
+    var html = React.renderToString(Content({weather: req.weather, type: 'short', documentURL: req.originalUrl}));
+    console.log(html);
+    */
     res.render('index', {data: {weather: req.weather, type: 'short'}});
 });
 

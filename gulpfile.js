@@ -18,7 +18,7 @@ var mocha = require('gulp-mocha');
 
 
 // Set paths
-var blocksPath = './blocks/**/*';
+var blocksPath = './app/blocks/**/*';
 var publicPath = './desktop.bundles/index/';
 var testPath = [
     './tests/server/*.js'
