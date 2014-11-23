@@ -1,15 +1,12 @@
 /** @jsx React.DOM */
 var React = require('react');
 
-var GeoIDEcho = React.createClass({
-    render: function () {
-        return (
-            <h1>{this.props.geoid}</h1>
-        );
-    }
-});
+var Network = require('./network');
+var Content = require('../blocks/content/content.jsx');
+
 
 window.onload = function () {
-    var geoid = JSON.parse(document.getElementById("initial-data").innerHTML).geoid;
-    React.render(<GeoIDEcho geoid={geoid} />, document.body);
+    var data = JSON.parse(document.getElementById("initial-data").innerHTML);
+    console.log(data);
+    React.render(<Content type={data.type} weather={data.weather} />, document.getElementById('content'));
 }
