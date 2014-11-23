@@ -48,7 +48,7 @@ var WeatherShortHeader = React.createClass({
                     <p className="weather-short__date">{datename}</p>
                 </td>
             );
-        })
+        });
 
         return (<tr>{rows}</tr>);
     }
@@ -69,7 +69,7 @@ var WeatherShortDay = React.createClass({
 
             rows.push(
                 <td className={'weather-short__dayweather weather' + (temp + temp % 2)} key={key++}>
-                    <img src={'http://yandex.st/weather/1.2.77/i/icons/30x30/' + wIcon + '.png'} />
+                    <img className="weather-short__icon" src={'http://yandex.st/weather/1.2.77/i/icons/30x30/' + wIcon + '.png'} />
                     <p className="weather-short__descr">{weather.parts[4].weather}</p>
                     <p className="weather-short__temperature">{(temp > 0 ? '+' : '') + temp}</p>
                 </td>
@@ -105,8 +105,9 @@ var WeatherShortNight = React.createClass({
 
 var WeatherShort = React.createClass({
     render: function () {
+        var displayed = (this.props.type == "short") ? {display:'block'} : {};
         return (
-            <div className="content__weather-short">
+            <div className="content__weather-short" style={displayed}>
                 <table className="weather-short">
                     <thead>
                         <WeatherShortHeader forecast={this.props.forecast} />
