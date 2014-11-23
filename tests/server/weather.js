@@ -38,6 +38,15 @@ describe('server.weather', function () {
         });
     });
 
+    it('getSuggest', function (done) {
+        weather.getSuggest('екатеринбург').done(function (data) {
+            expect(data).to.be.an('array').with.to.have.length(1);
+            expect(data[0]).to.be.a('object').with.to.have.property('geoid', 54);
+            done();
+
+        }, done);
+    })
+
     it('WeatherKeeper wait `new` event', function (done) {
         var wk = new weather.WeatherKeeper(54);
         wk.on('new', function (data) {

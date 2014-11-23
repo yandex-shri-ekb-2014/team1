@@ -26,7 +26,7 @@ function weatherRequest(path) {
     }
 
     if (_.isUndefined(weatherRequestPromises[url])) {
-        var requestOpts = {url: url, json: true};
+        var requestOpts = {url: encodeURI(url), json: true};
         weatherRequestPromises[url] = request(requestOpts).spread(function (response, body) {
             weatherLRU.set(url, body);
             delete weatherRequestPromises[url];
@@ -91,6 +91,17 @@ function getFactual(geoids) {
         if (!isGoodData) { throw new Error('Invalid region GeoID'); }
 
         return data;
+    });
+}
+
+/**
+ * @param {string} query
+ * @return {Q.Promise<Object[]>}
+ */
+function getSuggest(query) {
+    return weatherRequest('/suggest?query=' + query).then(function (result) {
+        if (!_.isArray(result)) { throw new TypeError('Bad response'); }
+        return result;
     });
 }
 
@@ -170,5 +181,6 @@ module.exports = {
     getCitiesList: getCitiesList,
     getProvincesList: getProvincesList,
     getFactual: getFactual,
+    getSuggest: getSuggest,
     WeatherKeeper: WeatherKeeper
 };

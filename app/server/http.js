@@ -23,7 +23,7 @@ router.get('/', function (req, res, next) {
 
         res.redirect('/' + cityName);
 
-    }).done(next, next);
+    }).done(function () { next(); }, next);
 });
 
 router.param('cityName', function (req, res, next, cityName) {
@@ -36,7 +36,7 @@ router.param('cityName', function (req, res, next, cityName) {
     weatherAPI.getLocalityInfo(geoid).then(function (weather) {
         req.weather = weather;
 
-    }).done(next, next);
+    }).done(function () { next(); }, next);
 });
 
 router.get('/:cityName', function (req, res) {
