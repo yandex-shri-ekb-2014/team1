@@ -1,14 +1,16 @@
-var _ = require('lodash');
 var request = require('request');
 var parseString = require('xml2js').parseString;
 var Q  = require('q');
+var Datastore = require('nedb');
 
-var geoidList = require('./geoid.json');
 var weather = require('./weather');
 
 
 request = Q.nbind(request);
 parseString = Q.nbind(parseString);
+
+var db = new Datastore({filename: './geoid.db', autoload: true});
+var dbFindOne = Q.nbind(db.findOne, db);
 
 
 /**
@@ -43,22 +45,22 @@ function checkGeoid(geoid) {
 
 /**
  * @param {number} geoid
- * @return {?string}
+ * @return {Q.Promise<?string>}
  */
 function getTranslitCityNameByGeoid(geoid) {
-    var record = _.find(geoidList, {geoid: geoid});
-    if (_.isUndefined(record)) { return null; }
-    return record.translit;
+    return dbFindOne({geoid: geoid}).then(function (record) {
+        return record === null ? null : record.tname;
+    });
 }
 
 /**
  * @param {string} cityName
- * @return {?number}
+ * @return {Q.Promise<?number>}
  */
 function getGeoidByTranslitCityName(cityName) {
-    var record = _.find(geoidList, {translit: cityName});
-    if (_.isUndefined(record)) { return null; }
-    return record.geoid;
+    return dbFindOne({tname: cityName}).then(function (record) {
+        return record === null ? null : record.geoid;
+    });
 }
 
 

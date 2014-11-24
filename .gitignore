@@ -1,6 +1,7 @@
 .idea
 .DS_Store
 atlassian-ide-plugin.xml
+geoid.db
 
 npm-debug.log
 
