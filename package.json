@@ -1,0 +1,28 @@
+{
+  "name": "weather",
+  "version": "0.0.1",
+  "description": "shri2014",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shri2014ekb/team1.git"
+  },
+  "private": true,
+  "dependencies": {
+    "lodash": "^2.4.1",
+    "lru-cache": "^2.5.0",
+    "nedb": "^0.11.1",
+    "optimist": "^0.6.1",
+    "q": "^1.1.2",
+    "request": "^2.48.0",
+    "translitit-cyrillic-russian-to-latin": "^0.1.0"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "moment": "global:moment",
+    "react": "global:React"
+  }
+}
