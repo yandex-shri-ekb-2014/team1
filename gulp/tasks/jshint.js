@@ -1,11 +1,11 @@
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 
-var environment;
-if (!process.env.environment) {
-    environment = 'development';
+var NODE_ENV;
+if (!process.env.NODE_ENV) {
+    NODE_ENV = 'development';
 }
-var tasksData = require('../configs/' + environment + '.json');
+var tasksData = require('./gulp/configs/' + NODE_ENV + '.json');
 
 // Include jshint task
 gulp.task('jshint', function () {

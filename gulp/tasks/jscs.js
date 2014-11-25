@@ -1,11 +1,11 @@
 var gulp = require('gulp');
 var jscs = require('gulp-jscs');
 
-var environment;
-if (!process.env.environment) {
-    environment = 'development';
+var NODE_ENV;
+if (!process.env.NODE_ENV) {
+    NODE_ENV = 'development';
 }
-var tasksData = require('../configs/' + environment + '.json');
+var tasksData = require('./gulp/configs/' + NODE_ENV + '.json');
 
 // Include jscs task
 gulp.task('jscs', function () {

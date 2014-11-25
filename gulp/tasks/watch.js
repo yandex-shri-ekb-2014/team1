@@ -1,10 +1,10 @@
 var gulp = require('gulp');
 
-var environment;
-if (!process.env.environment) {
-    environment = 'development';
+var NODE_ENV;
+if (!process.env.NODE_ENV) {
+    NODE_ENV = 'development';
 }
-var tasksData = require('../configs/' + environment + '.json');
+var tasksData = require('./gulp/configs/' + NODE_ENV + '.json');
 
 // Include js & css watch task
 gulp.task('watch', function () {

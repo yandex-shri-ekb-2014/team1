@@ -4,11 +4,11 @@ var reactify = require('reactify');
 var source = require('vinyl-source-stream');
 // var uglifyjs = require('gulp-uglify');
 
-var environment;
-if (!process.env.environment) {
-    environment = 'development';
+var NODE_ENV;
+if (!process.env.NODE_ENV) {
+    NODE_ENV = 'development';
 }
-var tasksData = require('../configs/' + environment + '.json');
+var tasksData = require('./gulp/configs/' + NODE_ENV + '.json');
 
 // Include scripts task ( concat + uglify )
 gulp.task('scripts', function () {

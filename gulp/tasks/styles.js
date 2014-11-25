@@ -4,11 +4,11 @@ var stylus = require('gulp-stylus');
 var autoprefixer = require('gulp-autoprefixer');
 var minifycss = require('gulp-minify-css');
 
-var environment;
-if (!process.env.environment) {
-    environment = 'development';
+var NODE_ENV;
+if (!process.env.NODE_ENV) {
+    NODE_ENV = 'development';
 }
-var tasksData = require('../configs/' + environment + '.json');
+var tasksData = require('./gulp/configs/' + NODE_ENV + '.json');
 
 // Include styles task ( concat + stylus + autoprefixer + minify )
 gulp.task('styles', function () {
