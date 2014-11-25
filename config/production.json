@@ -2,7 +2,7 @@
   "gulp": {
     "paths": {
       "blocksPath" : "./app/blocks/**/*",
-      "scriptsPaths" : ["gulpfile.js","geoid.js","./app/**/*.js"],
+      "scriptsPaths" : ["gulpfile.js","./app/**/*.js"],
       "publicPath": "./production/index/"
     },
     "configTasks": ["styles" , "scripts"]
