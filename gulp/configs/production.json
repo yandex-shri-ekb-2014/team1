@@ -1,8 +1,0 @@
-{
-  "paths": {
-    "blocksPath" : "./app/blocks/**/*",
-    "scriptsPaths" : ["gulpfile.js","geoid.js","./app/**/*.js"],
-    "publicPath": "./producion/index/"
-  },
-  "configTasks": ["styles" , "scripts"]
-}

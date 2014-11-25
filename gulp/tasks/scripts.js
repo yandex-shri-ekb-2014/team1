@@ -2,13 +2,9 @@ var gulp = require('gulp');
 var browserify = require('browserify');
 var reactify = require('reactify');
 var source = require('vinyl-source-stream');
-// var uglifyjs = require('gulp-uglify');
+var config = require('config');
 
-var NODE_ENV;
-if (!process.env.NODE_ENV) {
-    NODE_ENV = 'development';
-}
-var tasksData = require('./gulp/configs/' + NODE_ENV + '.json');
+var tasksData = config.get('gulp');
 
 // Include scripts task ( concat + uglify )
 gulp.task('scripts', function () {
