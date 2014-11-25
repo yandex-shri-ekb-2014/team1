@@ -15,7 +15,9 @@ router.get('/', function (req, res, next) {
     var clientIp = getIpFromRequest(req).clientIp;
 
     geoidAPI.getGeoidByIp(clientIp).then(function (geoid) {
-        var cityName = geoidAPI.getTranslitCityNameByGeoid(geoid);
+        return geoidAPI.getTranslitCityNameByGeoid(geoid);
+
+    }).then(function (cityName) {
         if (cityName === null) {
             // Todo: redirect to choose ?
             return res.status(404).send('Can\'t resolve your ip to city...');
@@ -27,14 +29,14 @@ router.get('/', function (req, res, next) {
 });
 
 router.param('cityName', function (req, res, next, cityName) {
-    var geoid = geoidAPI.getGeoidByTranslitCityName(cityName);
-    if (geoid === null) {
-        res.status(404).send('Can\'t resolve your cityName to geoid...');
-        return next();
-    }
+    geoidAPI.getGeoidByTranslitCityName(cityName).then(function (geoid) {
+        if (geoid === null) {
+            return res.status(404).send('Can\'t resolve your cityName to geoid...');
+        }
 
-    weatherAPI.getLocalityInfo(geoid).then(function (weather) {
-        req.weather = weather;
+        return weatherAPI.getLocalityInfo(geoid).then(function (weather) {
+            req.weather = weather;
+        });
 
     }).done(function () { next(); }, next);
 });

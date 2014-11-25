@@ -37,7 +37,7 @@ app.use('/static', express.static('./desktop.bundles/index'));
 app.use(function(error, req, res, next) {
     if(!error) { return next(); }
     console.log(error.stack);
-    res.sendStatus(500);
+    //res.sendStatus(500);
 })
 
 var server = app.listen(argv.port, argv.host, function () {
