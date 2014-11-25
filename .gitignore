@@ -6,5 +6,6 @@ geoid.db
 npm-debug.log
 
 node_modules
-
 desktop.bundles
+development
+production
