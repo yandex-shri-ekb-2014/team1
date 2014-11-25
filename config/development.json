@@ -1,12 +1,12 @@
 {
   "gulp": {
-	  "paths": {
-	    "blocksPath" : "./app/blocks/**/*",
-	    "scriptsPaths" : ["gulpfile.js","./app/**/*.js"],
-	    "testPath": ["./tests/server/*.js"],
-	    "publicPath": "./development/index/",
-	    "appPath": "./app/browser/app.jsx"
-	  },
-	  "configTasks": ["styles" , "scripts" , "jshint" , "jscs" , "watch"]
-	}
+      "paths": {
+        "blocksPath" : "./app/blocks/**/*",
+        "scriptsPaths" : ["gulpfile.js","./app/**/*.js"],
+        "testPath": ["./tests/server/*.js"],
+        "publicPath": "./development/index/",
+        "appPath": "./app/browser/app.jsx"
+      },
+      "configTasks": ["styles" , "scripts" , "jshint" , "jscs" , "watch"]
+    }
 }
