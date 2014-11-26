@@ -6,5 +6,6 @@ node_js:
   - "0.10"
 env:
   - TEST_SUITE=jshint jscs
+  - TEST_SUITE=scripts styles
   - TEST_SUITE=test
 script: "gulp $TEST_SUITE"

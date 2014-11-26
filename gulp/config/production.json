@@ -1,0 +1,14 @@
+{
+  "gulp": {
+    "paths": {
+      "blocksPath" : "./app/blocks/**/*",
+      "scriptsPaths" : [
+        "gulpfile.js",
+        "server.js",
+        "./app/**/*.js"
+      ],
+      "publicPath": "./public.production/index/"
+    },
+    "default": ["styles" , "scripts"]
+  }
+}

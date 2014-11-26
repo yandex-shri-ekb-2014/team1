@@ -27,18 +27,19 @@ var morgan = require('morgan');
 
 var app = express();
 
-app.set('views', './app/views')
-app.set('view engine', 'jade')
+app.set('views', './app/views');
+app.set('view engine', 'jade');
 
 app.use(morgan('combined'));
 
 app.use('', require('./app/server/http').router);
-app.use('/static', express.static('./desktop.bundles/index'));
-app.use(function(error, req, res, next) {
-    if(!error) { return next(); }
+app.use('/static', express.static('./public.development/index'));
+app.use('/static', express.static('./public.production/index'));
+app.use(function (error, req, res, next) {
+    if (!error) { return next(); }
     console.log(error.stack);
-    //res.sendStatus(500);
-})
+    // res.sendStatus(500);
+});
 
 var server = app.listen(argv.port, argv.host, function () {
     console.info('Server running on %s:%s', argv.host, argv.port);
