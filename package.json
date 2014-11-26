@@ -54,6 +54,7 @@
     "require-dir": "^0.1.0",
     "socket.io-client": "^1.2.0",
     "stylus": "^0.49.3",
+    "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.0.0"
   },
   "browserify": {
