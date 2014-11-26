@@ -3,7 +3,7 @@ var socketio = require('socket.io');
 var Q = require('q');
 
 var weather = require('./weather');
-var checkGeoid = require('./geoid').checkGeoid;
+var geoidAPI = require('./geoid');
 
 
 /**
@@ -16,7 +16,7 @@ function attach(server) {
     var weatherKeepers = {};
 
     io.on('connection', function (socket) {
-        var currentGeoid = null;
+        var currentCityName = null;
         var subscribeRunning = false;
         var subscribeQueue = [];
 
@@ -28,29 +28,29 @@ function attach(server) {
         /**
          * @param {Object} data
          */
-        function subscribeCallback(data) {
-            sendData({id: null, method: 'weather.subscribe', result: data});
+        function newWeatherCallback(data) {
+            sendData({id: null, method: 'weather.subscribe', result: [currentCityName, data]});
         }
 
         /**
-         * @param {number} geoid
+         * @param {string} cityName
          */
-        function unsubscribeGeoid(geoid) {
-            subscribeCount[geoid] -= 1;
-            weatherKeepers[geoid].removeListener('new', subscribeCallback);
+        function unsubscribeCityName(cityName) {
+            subscribeCount[cityName] -= 1;
+            weatherKeepers[cityName].removeListener('new', newWeatherCallback);
 
-            if (subscribeCount[geoid] === 0) {
-                delete subscribeCount[geoid];
-                weatherKeepers[geoid].stop();
-                delete weatherKeepers[geoid];
+            if (subscribeCount[cityName] === 0) {
+                delete subscribeCount[cityName];
+                weatherKeepers[cityName].stop();
+                delete weatherKeepers[cityName];
             }
         }
 
         /**
-         * @param {number} geoid
+         * @param {string} cityName
          * @return {Q.Promise}
          */
-        function subscribeGeoid(geoid) {
+        function subscribeCityName(cityName) {
             var promise = Q();
 
             if (subscribeRunning) {
@@ -60,23 +60,27 @@ function attach(server) {
             subscribeRunning = true;
 
             return promise.then(function () {
-                return checkGeoid(geoid);
+                return geoidAPI.getGeoidByCityName(cityName);
 
-            }).then(function () {
-                if (currentGeoid !== null) { unsubscribeGeoid(currentGeoid); }
-
-                currentGeoid = geoid;
-                if (_.isUndefined(subscribeCount[geoid])) {
-                    subscribeCount[geoid] = 0;
-                    weatherKeepers[geoid] = new weather.WeatherKeeper(geoid);
+            }).then(function (geoid) {
+                if (currentCityName !== null) {
+                    unsubscribeCityName(currentCityName);
                 }
 
-                subscribeCount[geoid] += 1;
-                weatherKeepers[geoid].on('new', subscribeCallback);
+                currentCityName = cityName;
+                if (_.isUndefined(subscribeCount[currentCityName])) {
+                    subscribeCount[currentCityName] = 0;
+                    weatherKeepers[currentCityName] = new weather.WeatherKeeper(geoid);
+                }
+
+                subscribeCount[currentCityName] += 1;
+                weatherKeepers[currentCityName].on('new', newWeatherCallback);
 
             }).finally(function () {
                 subscribeRunning = false;
-                if (subscribeQueue.length > 0) { subscribeQueue.pop().resolve(); }
+                if (subscribeQueue.length > 0) {
+                    subscribeQueue.shift().resolve();
+                }
 
             }).then(function () { return 'ok'; });
         }
@@ -98,15 +102,32 @@ function attach(server) {
                 }
 
                 if (method === 'weather.get') {
-                    return weather.getLocalityInfo(params[0]);
+                    return geoidAPI.getGeoidByCityName(params[0]).then(weather.getLocalityInfo);
                 }
 
                 if (method === 'weather.subscribe') {
-                    return subscribeGeoid(params[0]);
+                    return subscribeCityName(params[0]);
+                }
+
+                if (method === 'weather.unsubscribe') {
+                    if (currentCityName !== null) {
+                        unsubscribeCityName(currentCityName);
+                    }
+
+                    return 'ok';
                 }
 
                 if (method === 'suggest') {
-                    return weather.getSuggest(params[0]);
+                    return weather.getSuggest(params[0]).then(function (entries) {
+                        var promises = entries.map(function (entry) {
+                            return geoidAPI.getCityNameByGeoid(entry.geoid).then(function (cityName) {
+                                entry.tname = cityName;
+                                return entry;
+                            });
+                        });
+
+                        return Q.all(promises);
+                    });
                 }
 
                 throw new Error('unknow method');
@@ -115,13 +136,16 @@ function attach(server) {
                 sendData({id: requestId, result: data});
 
             }, function (error) {
-                sendData({id: requestId, error: error.message});
+                var errorMsg = error.message || error.type;
+                sendData({id: requestId, error: errorMsg});
 
             });
         });
 
         socket.on('disconnect', function () {
-            if (currentGeoid !== null) { unsubscribeGeoid(currentGeoid); }
+            if (currentCityName !== null) {
+                unsubscribeCityName(currentCityName);
+            }
         });
     });
 }

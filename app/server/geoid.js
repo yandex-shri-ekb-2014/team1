@@ -3,6 +3,7 @@ var parseString = require('xml2js').parseString;
 var Q  = require('q');
 var Datastore = require('nedb');
 
+var errors = require('./errors');
 var weather = require('./weather');
 
 
@@ -45,21 +46,29 @@ function checkGeoid(geoid) {
 
 /**
  * @param {number} geoid
- * @return {Q.Promise<?string>}
+ * @return {Q.Promise<string>}
  */
-function getTranslitCityNameByGeoid(geoid) {
+function getCityNameByGeoid(geoid) {
     return dbFindOne({geoid: geoid}).then(function (record) {
-        return record === null ? null : record.tname;
+        if (record === null) {
+            throw new errors.GeoIdNotFound();
+        }
+
+        return record.tname;
     });
 }
 
 /**
  * @param {string} cityName
- * @return {Q.Promise<?number>}
+ * @return {Q.Promise<number>}
  */
-function getGeoidByTranslitCityName(cityName) {
+function getGeoidByCityName(cityName) {
     return dbFindOne({tname: cityName}).then(function (record) {
-        return record === null ? null : record.geoid;
+        if (record === null) {
+            throw new errors.CityNameNotFound();
+        }
+
+        return record.geoid;
     });
 }
 
@@ -67,6 +76,6 @@ function getGeoidByTranslitCityName(cityName) {
 module.exports = {
     getGeoidByIp: getGeoidByIp,
     checkGeoid: checkGeoid,
-    getTranslitCityNameByGeoid: getTranslitCityNameByGeoid,
-    getGeoidByTranslitCityName: getGeoidByTranslitCityName
+    getCityNameByGeoid: getCityNameByGeoid,
+    getGeoidByCityName: getGeoidByCityName
 };
