@@ -3,12 +3,9 @@ var concat = require('gulp-concat');
 var stylus = require('gulp-stylus');
 var autoprefixer = require('gulp-autoprefixer');
 var minifycss = require('gulp-minify-css');
+var config = require('config');
 
-var NODE_ENV;
-if (!process.env.NODE_ENV) {
-    NODE_ENV = 'development';
-}
-var tasksData = require('./gulp/configs/' + NODE_ENV + '.json');
+var tasksData = config.get('gulp');
 
 // Include styles task ( concat + stylus + autoprefixer + minify )
 gulp.task('styles', function () {
