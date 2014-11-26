@@ -8,6 +8,8 @@
   },
   "private": true,
   "dependencies": {
+    "config": "^1.8.1",
+    "errno": "^0.1.1",
     "express": "^4.10.1",
     "ipware": "0.0.2",
     "jade": "^1.7.0",
@@ -24,8 +26,7 @@
     "request": "^2.47.0",
     "socket.io": "^1.2.0",
     "url-join": "0.0.1",
-    "xml2js": "^0.4.4",
-    "config": "^1.8.1"
+    "xml2js": "^0.4.4"
   },
   "devDependencies": {
     "browserify": "^6.3.2",

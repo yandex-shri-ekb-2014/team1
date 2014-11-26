@@ -43,12 +43,12 @@ module.exports = function websocketImplementationTests(functions, socketObj) {
             socket.send('{"id": 0, "params": []}');
         });
 
-        it('weather.get: bad getid', function (done) {
+        it('weather.get: bad cityName', function (done) {
             socket.on('message', function (msg) {
-                expect(msg).to.equal('{"id":0,"error":"Invalid region GeoID"}');
+                expect(msg).to.equal('{"id":0,"error":"CityNameNotFound"}');
                 done();
             });
-            socket.send('{"id": 0, "method": "weather.get", "params": [-1]}');
+            socket.send('{"id": 0, "method": "weather.get", "params": ["ekaterynburd"]}');
         });
 
         it('weather.get: return data', function (done) {
@@ -60,15 +60,15 @@ module.exports = function websocketImplementationTests(functions, socketObj) {
                 expect(data.result).to.have.deep.property('info.geoid').and.equal(54);
                 done();
             });
-            socket.send('{"id": 0, "method": "weather.get", "params": [54]}');
+            socket.send('{"id": 0, "method": "weather.get", "params": ["ekaterynburg"]}');
         });
 
-        it('weather.subscribe: bad geoid', function (done) {
+        it('weather.subscribe: bad cityName', function (done) {
             socket.on('message', function (msg) {
-                expect(msg).to.equal('{"id":0,"error":"Invalid region GeoID"}');
+                expect(msg).to.equal('{"id":0,"error":"CityNameNotFound"}');
                 done();
             });
-            socket.send('{"id": 0, "method": "weather.subscribe", "params": [-1]}');
+            socket.send('{"id": 0, "method": "weather.subscribe", "params": ["ekaterynburd"]}');
         });
 
         it('weather.subscribe: return ok', function (done) {
@@ -83,27 +83,45 @@ module.exports = function websocketImplementationTests(functions, socketObj) {
                 expect(data.id).to.equal(null);
                 expect(data.method).to.equal('weather.subscribe');
 
-                expect(data.result).to.be.an('object');
-                expect(data.result).to.have.deep.property('info.geoid').and.equal(54);
+                expect(data.result).to.be.an('array').with.to.have.length(2);
+                expect(data.result[0]).to.equal('ekaterynburg')
+                expect(data.result[1]).to.have.deep.property('info.geoid').and.equal(54);
                 done();
             });
-            socket.send('{"id": 0, "method": "weather.subscribe", "params": [54]}');
+            socket.send('{"id": 0, "method": "weather.subscribe", "params": ["ekaterynburg"]}');
+        });
+
+        it('weather.unsubscribe: return ok', function (done) {
+            var isSubscribed = false;
+            socket.on('message', function (msg) {
+                if (JSON.parse(msg).id !== 0) { return }
+                expect(msg).to.equal('{"id":0,"result":"ok"}');
+
+                if (!isSubscribed) {
+                    socket.send('{"id": 0, "method": "weather.unsubscribe", "params": []}');
+                    return (isSubscribed = true);
+                }
+
+                done();
+            });
+            socket.send('{"id": 0, "method": "weather.subscribe", "params": ["ekaterynburg"]}');
         });
 
         it('suggest: return one', function (done) {
             socket.on('message', function (msg) {
-                expect(msg).to.equal(JSON.stringify({
-                    "id": 0,
-                    "result": [
+                expect(JSON.parse(msg)).to.deep.equal({
+                    id: 0,
+                    result: [
                         {
-                            "geoid": 54,
-                            "name": "Екатеринбург",
-                            "province": "Свердловская область",
-                            "country": "Россия",
-                            "relevance": 1000
+                            geoid: 54,
+                            name: "Екатеринбург",
+                            tname: "ekaterynburg",
+                            province: "Свердловская область",
+                            country: "Россия",
+                            relevance: 1000
                         }
                     ]
-                }));
+                });
                 done();
             });
             socket.send('{"id": 0, "method": "suggest", "params": ["екатеринбург"]}');

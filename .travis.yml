@@ -1,5 +1,6 @@
 language: node_js
 before_install:
+  - wget https://github.com/yandex-shri-ekb-2014/team1/raw/geodb/geoid.db
   - npm install -g gulp
 node_js:
   - "0.11"

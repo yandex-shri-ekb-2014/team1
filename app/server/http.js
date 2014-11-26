@@ -15,30 +15,22 @@ router.get('/', function (req, res, next) {
     var clientIp = getIpFromRequest(req).clientIp;
 
     geoidAPI.getGeoidByIp(clientIp).then(function (geoid) {
-        return geoidAPI.getTranslitCityNameByGeoid(geoid);
+        return geoidAPI.getCityNameByGeoid(geoid);
 
     }).then(function (cityName) {
-        if (cityName === null) {
-            // Todo: redirect to choose ?
-            return res.status(404).send('Can\'t resolve your ip to city...');
-        }
-
         res.redirect('/' + cityName);
 
-    }).done(function () { next(); }, next);
+    }).done(next, next);
 });
 
 router.param('cityName', function (req, res, next, cityName) {
-    geoidAPI.getGeoidByTranslitCityName(cityName).then(function (geoid) {
-        if (geoid === null) {
-            return res.status(404).send('Can\'t resolve your cityName to geoid...');
-        }
+    geoidAPI.getGeoidByCityName(cityName).then(function (geoid) {
+        return weatherAPI.getLocalityInfo(geoid);
 
-        return weatherAPI.getLocalityInfo(geoid).then(function (weather) {
-            req.weather = weather;
-        });
+    }).then(function (weather) {
+        req.weather = weather;
 
-    }).done(function () { next(); }, next);
+    }).done(next, next);
 });
 
 router.get('/:cityName', function (req, res) {

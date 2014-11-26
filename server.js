@@ -23,6 +23,7 @@ if (argv.help) {
 
 var express = require('express');
 var morgan = require('morgan');
+var errors = require('./app/server/errors');
 
 
 var app = express();
@@ -37,7 +38,12 @@ app.use('/static', express.static('./desktop.bundles/index'));
 app.use(function(error, req, res, next) {
     if(!error) { return next(); }
     console.log(error.stack);
-    //res.sendStatus(500);
+
+    var status = 500;
+    if (error instanceof errors.CityNameNotFound || errors instanceof errors.GeoIdNotFound) {
+        status = 404;
+    }
+    res.sendStatus(status);
 })
 
 var server = app.listen(argv.port, argv.host, function () {
