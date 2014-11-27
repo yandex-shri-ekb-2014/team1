@@ -5,9 +5,11 @@
       "scriptsPaths" : [
         "gulpfile.js",
         "server.js",
-        "./app/**/*.js"
+        "./app/**/*.js",
+        "./gulp/**/*.js"
       ],
-      "publicPath": "./public.production/index/"
+      "publicPath": "./public.production/index/",
+      "appPath": "./app/browser/app.jsx"
     },
     "default": ["styles" , "scripts"]
   }
