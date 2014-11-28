@@ -65,6 +65,7 @@
   },
   "browserify-shim": {
     "moment": "global:moment",
-    "react": "global:React"
+    "react": "global:React",
+    "q": "global:Q"
   }
 }
