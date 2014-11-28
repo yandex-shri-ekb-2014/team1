@@ -5,78 +5,77 @@ html
     title=(data.weather.info.name)
     link(href='/static/index.css', rel='stylesheet')
   body
-  header
-    .header__top
-      .header__logo
-      img(src='https://raw.githubusercontent.com/yandex-shri-ekb-2014/team1/b93e6eb0a726f362a46b500513eca59e069f0a55/desktop.bundles/index/logo.png', width='82', height='33')
-      .header__search
-      .search
-        .search__search-info
-        .search-info
-          h1.search-info__h1 Погода
-          .search-info__arrow
-        form.search__form(action='')
-        input.search__input(type='text')
-        button.search__button Найти
-      .header__user
-      .user
-        img.user__avatar(src='https://raw.githubusercontent.com/yandex-shri-ekb-2014/team1/b93e6eb0a726f362a46b500513eca59e069f0a55/desktop.bundles/index/userpic.jpg', width='42', height='42')
-        a.user__name(href='#')
-        span.user__red S
-        | arah Connor
-
-  .weather-detail
-    .weather-detail__select-city
-      h2.select-city__h2 Екатеринбург
-      .city-list
-        p.city-list__p
-          | Другой город
-          img(src='active-arrow.png')
-        ul.city-list__ul
-          li.city-list__ul_li_begin Последние города
-          li.city-list__ul_li_active Москва
-          li Санкт-Петербург
-          li Екатеринбург
-          li.city-list__ul_li_end Все города
-      table.weather-detail__table-detail
-        tr.table-detail__th
-          th.table-detail__th_now сейчас
-          th днем
-          th вечером
-          th ночью
-          td
-        tr.table-detail__temp
-          td.table-detail__temp_now.vertical-align-bottom.weather30 +30 °C
-          td.vertical-align-bottom.weather14 +15 °C
-          td.vertical-align-bottom.weather4 +4 °C
-          td.vertical-align-bottom.weather-2 −2 °C
-          td.table-detail__more-info.vertical-align-top(rowspan='2')
-            | Давление: 735 мм рт. ст.
-            br
-            | Ветер: северо-восточный, 2.7 м/с (9.7 км/ч)
-            br
-            | Влажность: 72%
-            br
-            | Восход: 06:36 Заход: 21:24
-            br
-            p.table-detail__reg
-              | Данные зарегистрированы недавно
-              a(href='#')
-                img(src='_.png')
-        tr.table-detail__tr_top
-          td.table-detail__w-info.weather30
-            img(src='w-ico.png')
-            | малооблачно
-          td.weather14
-            img(src='w-ico-min.png')
-          td.weather4
-            img(src='w-ico-min.png')
-          td.weather-2
-            img(src='w-ico-min.png')
-        tr
-          td.table-detail__yesterday(colspan='5') вчера +10 °C
-    .weather-detail__rotater
-      img(src='rotator.jpg')
+    header
+      .header__top
+          .header__logo
+            img(src='logo.png', width='82', height='33')
+          .header__search
+            .search
+              .search__search-info
+                .search-info
+                  h1.search-info__h1 Погода
+                  .search-info__arrow
+              form.search__form(action='')
+                input.search__input(type='text')
+                button.search__button Найти
+          .header__user
+            .user
+              img.user__avatar(src='userpic.jpg', width='42', height='42')
+              a.user__name(href='#')
+                span.user__red S
+                | arah Connor
+    .weather-detail
+      .weather-detail__select-city
+        h2.select-city__h2 Екатеринбург
+        .city-list
+          p.city-list__p
+            | Другой город
+            img(src='active-arrow.png')
+          ul.city-list__ul
+            li.city-list__ul_li_begin Последние города
+            li.city-list__ul_li_active Москва
+            li Санкт-Петербург
+            li Екатеринбург
+            li.city-list__ul_li_end Все города
+        table.weather-detail__table-detail
+          tr.table-detail__th
+            th.table-detail__th_now сейчас
+            th днем
+            th вечером
+            th ночью
+            td
+          tr.table-detail__temp
+            td.table-detail__temp_now.vertical-align-bottom.weather30 +30 °C
+            td.vertical-align-bottom.weather14 +15 °C
+            td.vertical-align-bottom.weather4 +4 °C
+            td.vertical-align-bottom.weather-2 −2 °C
+            td.table-detail__more-info.vertical-align-top(rowspan='2')
+              | Давление: 735 мм рт. ст.
+              br
+              | Ветер: северо-восточный, 2.7 м/с (9.7 км/ч)
+              br
+              | Влажность: 72%
+              br
+              | Восход: 06:36 Заход: 21:24
+              br
+              p.table-detail__reg
+                | Данные зарегистрированы недавно
+                a(href='#')
+                  img(src='_.png')
+          tr.table-detail__tr_top
+            td.table-detail__w-info.weather30
+              img(src='w-ico.png')
+              | малооблачно
+            td.weather14
+              img(src='w-ico-min.png')
+            td.weather4
+              img(src='w-ico-min.png')
+            td.weather-2
+              img(src='w-ico-min.png')
+          tr
+            td.table-detail__yesterday(colspan='5') вчера +10 °C
+      .weather-detail__rotater
+        img(src='rotator.jpg')
 
     div#content
 
