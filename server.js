@@ -2,11 +2,11 @@ var optimist = require('optimist')
     .usage('Usage: $0 [-h] [--port port] [--host hostname]')
     .options('port', {
         describe: 'server port',
-        default: 8000
+        default: process.env.PORT || 8000
     })
     .options('host', {
         describe: 'server hostname',
-        default: 'localhost'
+        default: process.env.HOST || 'localhost'
     })
     .options('h', {
         alias: 'help',
@@ -30,12 +30,13 @@ var app = express();
 
 app.set('views', './app/views');
 app.set('view engine', 'jade');
+app.set('static path', './public.development/index');
+if (process.env.NODE_ENV === 'production') { app.set('static path', './public.production/index'); }
 
 app.use(morgan('combined'));
 
 app.use('', require('./app/server/http').router);
-app.use('/static', express.static('./public.development/index'));
-app.use('/static', express.static('./public.production/index'));
+app.use('/static', express.static(app.get('static path')));
 app.use(function (error, req, res, next) {
     if (!error) { return next(); }
     console.log(error.stack);
@@ -47,7 +48,7 @@ app.use(function (error, req, res, next) {
     res.sendStatus(status);
 });
 
-var server = app.listen(argv.port, argv.host, function () {
+var server = app.listen(argv.port, function () {
     console.info('Server running on %s:%s', argv.host, argv.port);
 });
 require('./app/server/websocket').attach(server);
