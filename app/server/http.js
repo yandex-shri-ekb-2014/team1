@@ -1,7 +1,8 @@
 var express = require('express');
+var path = require('path');
 // jshint camelcase:false
 // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-var getIpFromRequest = require('ipware')().get_ip;
+var getIpFromRequest = require('ipware')(path.join(__dirname, 'ipware.json')).get_ip;
 // jshint camelcase:true
 // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 
