@@ -1,6 +1,8 @@
 var events = require('events');
 var inherits = require('util').inherits;
 
+var Q = require('q');
+
 
 if (!Array.isArray) {
     Array.isArray = function (arg) {
@@ -82,7 +84,7 @@ inherits(Network, events.EventEmitter);
  * @param {*[]} params
  */
 Network.prototype._request = function (method, params) {
-    var deferred = Promise.defer();
+    var deferred = Q.defer();
     var request = {id: this._requestId++, method: method, params: params};
 
     this._requests[request.id] = deferred;
@@ -93,7 +95,7 @@ Network.prototype._request = function (method, params) {
 
 /**
  * @param {string} cityName
- * @return {Promise}
+ * @return {Q.Promise}
  */
 Network.prototype.getWeather = function (cityName) {
     return this._request('weather.get', [cityName]);
@@ -101,14 +103,14 @@ Network.prototype.getWeather = function (cityName) {
 
 /**
  * @param {string} cityName
- * @return {Promise}
+ * @return {Q.Promise}
  */
 Network.prototype.subscribeWeather = function (cityName) {
     return this._request('weather.subscribe', [cityName]);
 };
 
 /**
- * @return {Promise}
+ * @return {Q.Promise}
  */
 Network.prototype.unsubscribeWeather = function () {
     return this._request('weather.unsubscribe', []);
@@ -116,7 +118,7 @@ Network.prototype.unsubscribeWeather = function () {
 
 /**
  * @param {string} query
- * @return {Promise}
+ * @return {Q.Promise}
  */
 Network.prototype.getSuggest = function (query) {
     return this._request('suggest', [query]);

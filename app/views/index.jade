@@ -4,6 +4,7 @@ html
     meta(charset='utf-8')
     title=(data.weather.info.name)
     link(href='/static/index.css', rel='stylesheet')
+    link(rel='shortcut icon', href='//yandex.st/lego/_/p2hHn1BzWL7kJemxd7YIBrA98ho.ico')
   body
     header
       .header__top
@@ -147,6 +148,6 @@ html
     script(type='application/json' id='initial-data') !{JSON.stringify(data)}
     script(type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/react/0.12.1/react.min.js')
     script(type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js')
+    script(type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/q.js/1.1.2/q.min.js')
     script(type='text/javascript' src='//cdn.socket.io/socket.io-1.2.0.js')
-    script(type='text/javascript' src='//es6-promises.s3.amazonaws.com/es6-promise-2.0.0.min.js')
     script(type='text/javascript' src='/static/bundle.js')

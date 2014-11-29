@@ -72,7 +72,7 @@
   },
   "browserify-shim": {
     "moment": "global:moment",
-    "react": "global:React"
-  },
-  "subdomain": "shri2014team1"
+    "react": "global:React",
+    "q": "global:Q"
+  }
 }
