@@ -13,7 +13,8 @@ var App = React.createClass({
     getInitialState: function () {
         return {
             isConnected: Network.isConnected(),
-            isLoading: true
+            isLoading: true,
+            weather: null
         };
     },
 
@@ -27,6 +28,13 @@ var App = React.createClass({
         var cityName = this.getPathname().match(/^\/([^/]+)(\/(details|climate))?\/?$/);
         if (cityName !== null && Object.prototype.toString.call(cityName[1])) {
             SearchActionCreators.newCity(cityName[1]);
+        }
+    },
+
+    componentDidUpdate: function () {
+        // @todo Use react-document-title
+        if (this.state.weather !== null) {
+            document.title = 'Погода ' + this.state.weather.info.nameprep;
         }
     },
 
@@ -49,7 +57,10 @@ var App = React.createClass({
     },
 
     _onWeatherStoreChange: function () {
-        this.setState({ isLoading: WeatherStore.isLoading() });
+        this.setState({
+            isLoading: WeatherStore.isLoading(),
+            weather: WeatherStore.getWeather()
+        });
     }
 });
 
