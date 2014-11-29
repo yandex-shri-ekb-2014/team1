@@ -1,11 +1,18 @@
 .search-info
     font-size: 16px
     position: relative
+    display: inline-block
+    vertical-align: middle
 
-.search-info__h1
+.search-info__wrapper-h1
+    padding: 0 15px
+    margin: 0
     border: 2px solid #ffca00
     border-right: none
-    padding: 5px 10px
+    line-height: 28px
+
+.search-info__h1
+    padding: 0
     margin: 0
     font-size: 16px
     font-weight: 400
@@ -14,8 +21,7 @@
     background: url(arrow.png) no-repeat;
     width: 10px
     height: 32px
-    margin-left: -5px
 
-.search-info__h1, .search-info__arrow
+.search-info__h1, .search-info__arrow, .search-info__wrapper-h1
     display: inline-block
     vertical-align: middle
