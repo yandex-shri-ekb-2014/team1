@@ -1,28 +1,26 @@
 /** @jsx React.DOM */
 var React = require('react');
+var Router = require('react-router');
+var Route = Router.Route;
+var RouteHandler = Router.RouteHandler;
+var NotFoundRoute = Router.NotFoundRoute;
 
-var Network = require('./network');
-var Content = require('../blocks/content/content.jsx');
+var App = require('./components/App.react.jsx');
+var Weather = require('./components/Weather.react.jsx');
+var NotFound = require('./components/NotFound.react.jsx');
 
+
+var routes = (
+    <Route path='/' handler={App}>
+        <Route name='weather-short' path='/:cityName' handler={Weather} />
+        <Route name='weather-full' path='/:cityName/details' handler={Weather} />
+        <Route name='weather-climate' path='/:cityName/climate' handler={Weather} />
+        <NotFoundRoute handler={NotFound} />
+     </Route>
+);
 
 window.onload = function () {
-    var data = JSON.parse(document.getElementById("initial-data").innerHTML);
-    console.log(data);
-    React.render(<Content type={data.type} weather={data.weather} />, document.getElementById('content'));
-
-    // Example
-    var network = new Network();
-    network.on('connect', function () {
-        network.getSuggest('Екате').then(function (result) {
-            console.log(result);
-
-        }).catch(function (error) {
-            throw error;
-
-        });
-
-    }).on('error', function (error) {
-        throw error;
-
+    Router.run(routes, Router.HistoryLocation, function (Handler, state) {
+        React.render(<Handler />, document.getElementById('content'));
     });
 }
