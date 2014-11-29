@@ -6,7 +6,7 @@ var getIpFromRequest = require('ipware')().get_ip;
 // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 
 var geoidAPI = require('./geoid');
-var weatherAPI = require('./weather');
+// var weatherAPI = require('./weather');
 
 
 var router = express.Router();
@@ -24,6 +24,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.param('cityName', function (req, res, next, cityName) {
+    /* @todo Server-side rendering...
     geoidAPI.getGeoidByCityName(cityName).then(function (geoid) {
         return weatherAPI.getLocalityInfo(geoid);
 
@@ -31,6 +32,10 @@ router.param('cityName', function (req, res, next, cityName) {
         req.weather = weather;
 
     }).done(next, next);
+    */
+
+    geoidAPI.getGeoidByCityName(cityName)
+        .done(function () { next(); }, next);
 });
 
 router.get('/:cityName', function (req, res) {
@@ -41,15 +46,15 @@ router.get('/:cityName', function (req, res) {
     var html = React.renderToString(Content({weather: req.weather, type: 'short', documentURL: req.originalUrl}));
     console.log(html);
     */
-    res.render('index', {data: {weather: req.weather, type: 'short'}});
+    res.render('index');
 });
 
 router.get('/:cityName/details', function (req, res) {
-    res.render('index', {data: {weather: req.weather, type: 'full'}});
+    res.render('index');
 });
 
 router.get('/:cityName/climate', function (req, res) {
-    res.render('index', {data: {weather: req.weather, type: 'climate'}});
+    res.render('index');
 });
 
 

@@ -2,7 +2,7 @@ doctype html
 html
   head
     meta(charset='utf-8')
-    title=(data.weather.info.name)
+    title Yandex Weather
     link(href='/static/index.css', rel='stylesheet')
   body
     header
@@ -144,8 +144,8 @@ html
             a.link.footer__link(href='#') Яндекс
             | &raquo;
 
-    script(type='application/json' id='initial-data') !{JSON.stringify(data)}
     script(type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/react/0.12.1/react.min.js')
+    script(type='text/javascript' src='//cdn.rawgit.com/rackt/react-router/master/dist/react-router.min.js')
     script(type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js')
     script(type='text/javascript' src='//cdn.socket.io/socket.io-1.2.0.js')
     script(type='text/javascript' src='//es6-promises.s3.amazonaws.com/es6-promise-2.0.0.min.js')

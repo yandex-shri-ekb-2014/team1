@@ -105,9 +105,8 @@ var WeatherShortNight = React.createClass({
 
 var WeatherShort = React.createClass({
     render: function () {
-        var displayed = (this.props.type == "short") ? {display:'block'} : {};
         return (
-            <div className="content__weather-short" style={displayed}>
+            <div className="content__weather-short">
                 <table className="weather-short">
                     <thead>
                         <WeatherShortHeader forecast={this.props.forecast} />
