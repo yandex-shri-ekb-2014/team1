@@ -25,8 +25,8 @@ var Header = React.createClass({
     render: function() {
         
         var suggestList = this.state.suggest.map(function (entry) {
-            console.log(entry);
-            return <li className='search-suggest-item'><a href={entry.tname}>{entry.name}</a></li>
+            var temp = entry.temp;
+            return <li className='search-suggest-item'><a className={'weather' + (temp + temp % 2)} href={'/'+entry.tname}>{entry.name}&nbsp;{entry.temp}</a></li>
         });
 
         return (
