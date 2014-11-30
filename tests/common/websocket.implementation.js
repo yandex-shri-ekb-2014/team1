@@ -107,10 +107,10 @@ module.exports = function websocketImplementationTests(functions, socketObj) {
             socket.send('{"id": 0, "method": "weather.subscribe", "params": ["ekaterynburg"]}');
         });
 
-        it('suggest: return one', function (done) {
+        it.only('suggest: return one', function (done) {
             socket.on('message', function (msg) {
                 msg = JSON.parse(msg)
-                delete msg.temp
+                delete msg.result[0].temp
                 expect(msg).to.deep.equal({
                     id: 0,
                     result: [
