@@ -2,7 +2,7 @@ var _ = require('lodash');
 var socketio = require('socket.io');
 var Q = require('q');
 
-var weather = require('./weather');
+var weatherAPI = require('./weather');
 var geoidAPI = require('./geoid');
 
 
@@ -70,7 +70,7 @@ function attach(server) {
                 currentCityName = cityName;
                 if (_.isUndefined(subscribeCount[currentCityName])) {
                     subscribeCount[currentCityName] = 0;
-                    weatherKeepers[currentCityName] = new weather.WeatherKeeper(geoid);
+                    weatherKeepers[currentCityName] = new weatherAPI.WeatherKeeper(geoid);
                 }
 
                 subscribeCount[currentCityName] += 1;
@@ -102,7 +102,7 @@ function attach(server) {
                 }
 
                 if (method === 'weather.get') {
-                    return geoidAPI.getGeoidByCityName(params[0]).then(weather.getLocalityInfo);
+                    return geoidAPI.getGeoidByCityName(params[0]).then(weatherAPI.getLocalityInfo);
                 }
 
                 if (method === 'weather.subscribe') {
@@ -118,11 +118,15 @@ function attach(server) {
                 }
 
                 if (method === 'suggest') {
-                    return weather.getSuggest(params[0]).then(function (entries) {
-                        var promises = entries.slice(0, 10).map(function (entry) {
+                    return weatherAPI.getSuggest(params[0]).then(function (entries) {
+                        var promises = entries.slice(0, 9).map(function (entry) {
                             return geoidAPI.getCityNameByGeoid(entry.geoid).then(function (cityName) {
                                 entry.tname = cityName;
-                                return entry;
+                                return weatherAPI.getFactual([entry.geoid])
+
+                            }).then(function (result) {
+                                entry.temp = result[0].temp;
+                                return entry
 
                             }).catch(function () { return; });
                         });
