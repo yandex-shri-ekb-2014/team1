@@ -12,7 +12,7 @@
   "scripts": {
     "start": "node server.js",
     "preinstall": "wget -O geoid.db https://github.com/yandex-shri-ekb-2014/team1/raw/geodb/geoid.db",
-    "postinstall": "./node_modules/.bin/gulp"
+    "postinstall": "./node_modules/.bin/gulp scripts styles images"
   },
   "private": true,
   "dependencies": {
