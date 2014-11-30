@@ -98,7 +98,7 @@ var WeatherFullOneDay = React.createClass({
                     {weather.sunset}
                             </td>
                             <td rowSpan="4" className="weather-full__moon-icon">
-                                <img src={'//ekb.shri14.ru/icons/icon_moon_' + mooncode + '.svg'} />
+                                <img src={'http://ekb.shri14.ru/icons/icon_moon_' + mooncode + '.svg'} />
                             </td>
                             <td rowSpan="4" className="weather-full__magnetic-field">
                                 <span className="weather-full__magnetic-field-title">
