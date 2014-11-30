@@ -3,7 +3,8 @@
 ###Just a few steps for run a server:
 ```bash
 $ npm install
-$ gulp scripts styles
+$ export NODE_ENV=production
+$ gulp
 $ node server.js
 ```
 

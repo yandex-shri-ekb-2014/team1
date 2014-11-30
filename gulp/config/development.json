@@ -14,6 +14,6 @@
       "publicPath": "./public.development/index/",
       "appPath": "./app/browser/app.jsx"
     },
-    "default": ["styles" , "scripts" , "jshint" , "jscs" , "watch"]
+    "default": ["styles" , "scripts" , "images", "jshint" , "jscs" , "watch"]
   }
 }

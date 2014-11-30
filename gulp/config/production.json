@@ -11,6 +11,6 @@
       "publicPath": "./public.production/index/",
       "appPath": "./app/browser/app.jsx"
     },
-    "default": ["styles" , "scripts"]
+    "default": ["styles" , "scripts", "images"]
   }
 }
