@@ -3,9 +3,12 @@ var delayed = require('delayed');
 var React = require('react');
 var Router = require('react-router');
 
-var SuggestStore = require('../stores/SuggestStore');
-
 var SearchActionCreators = require('../actions/SearchActionCreators');
+var SuggestStore = require('../stores/SuggestStore');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+var AppConstants = require('../constants/AppConstants');
+var PayloadSources = AppConstants.PayloadSources;
+var ActionTypes = AppConstants.ActionTypes;
 
 
 var Header = React.createClass({
@@ -20,10 +23,17 @@ var Header = React.createClass({
 
     componentDidMount: function () {
         SuggestStore.on('change', this._onHeaderStoreChange);
+        this._dispatchToken = AppDispatcher.register(function (payload) {
+            if (payload.source === PayloadSources.VIEW_ACTION && payload.action.actionType === ActionTypes.NEW_CITY) {
+                var tags = document.getElementsByClassName('search__input');
+                if (tags.length === 1) { tags[0].value = ''; }
+            }
+        });
     },
 
     componentWillUnmount: function () {
         SuggestStore.removeListener('change', this._onWeatherStoreChange);
+        AppDispatcher.unregister(this._dispatchToken);
     },
 
     render: function() {
