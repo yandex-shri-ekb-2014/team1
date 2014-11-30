@@ -8,6 +8,9 @@
         "./app/**/*.js",
         "./gulp/**/*.js"
       ],
+      "testPath": [
+        "./tests/server/*.js"
+      ],
       "publicPath": "./public.production/index/",
       "appPath": "./app/browser/app.jsx"
     },
