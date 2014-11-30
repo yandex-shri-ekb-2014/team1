@@ -26,7 +26,10 @@ var Header = React.createClass({
         this._dispatchToken = AppDispatcher.register(function (payload) {
             if (payload.source === PayloadSources.VIEW_ACTION && payload.action.actionType === ActionTypes.NEW_CITY) {
                 var tags = document.getElementsByClassName('search__input');
-                if (tags.length === 1) { tags[0].value = ''; }
+                if (tags.length === 1) {
+                    tags[0].value = '';
+                    this.setState({ suggest: [], isSuggestShow: false });
+                }
             }
         });
     },
