@@ -30,8 +30,14 @@ var app = express();
 
 app.set('views', './app/views');
 app.set('view engine', 'jade');
-app.set('static path', './public.development/index');
-if (process.env.NODE_ENV === 'production') { app.set('static path', './public.production/index'); }
+
+if (process.env.NODE_ENV === 'production') {
+    app.set('static path', './public.production/index');
+
+} else {
+    app.set('static path', './public.development/index');
+
+}
 
 app.use(morgan('combined'));
 

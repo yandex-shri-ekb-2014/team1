@@ -9,7 +9,7 @@ html
     header
       .header__top
           .header__logo
-            img(src='logo.png', width='82', height='33')
+            img(src='/static/images/header/logo.png', width='82', height='33')
           .header__search
             .search
               .search-info
@@ -21,7 +21,7 @@ html
                 button.search__button Найти
           .header__user
             .user
-              img.user__avatar(src='userpic.jpg', width='42', height='42')
+              img.user__avatar(src='/static/images/header/userpic.jpg', width='42', height='42')
               a.user__name(href='#')
                 span.user__red S
                 | arah Connor
@@ -31,7 +31,7 @@ html
         .city-list
           p.city-list__p
             | Другой город
-            img(src='active-arrow.png')
+            img(src='/static/images/header/active-arrow.png')
           ul.city-list__ul
             li.city-list__ul_li_begin Последние города
             li.city-list__ul_li_active Москва
@@ -62,21 +62,21 @@ html
               p.table-detail__reg
                 | Данные зарегистрированы недавно
                 a(href='#')
-                  img(src='_.png')
+                  img(src='/static/images/header/_.png')
           tr.table-detail__tr_top
             td.table-detail__w-info.weather30
-              img(src='w-ico.png')
+              img(src='/static/images/header/w-ico.png')
               | малооблачно
             td.weather14
-              img(src='w-ico-min.png')
+              img(src='/static/images/header/w-ico-min.png')
             td.weather4
-              img(src='w-ico-min.png')
+              img(src='/static/images/header/w-ico-min.png')
             td.weather-2
-              img(src='w-ico-min.png')
+              img(src='/static/images/header/w-ico-min.png')
           tr
             td.table-detail__yesterday(colspan='5') вчера +10 °C
       .weather-detail__rotater
-        img(src='rotator.jpg')
+        img(src='/static/images/header/rotator.jpg')
 
     div#content
 
