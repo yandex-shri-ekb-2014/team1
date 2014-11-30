@@ -7,7 +7,7 @@ module.exports = {
     NEW_CITY: null,
     NEW_WEATHER: null,
     NEW_SEARCH: null,
-    NET_SUGGEST: null
+    NEW_SUGGEST: null
   }),
 
   PayloadSources: keyMirror({

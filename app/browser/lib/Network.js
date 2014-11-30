@@ -164,7 +164,9 @@ Network.prototype.getWeather = function (cityName) {
  * @return {Q.Promise}
  */
 Network.prototype.getSuggest = function (query) {
-    return this._request('suggest', [query]);
+    return this._request('suggest', [query]).then(function (suggest) {
+        return suggest;
+    });
 };
 
 
