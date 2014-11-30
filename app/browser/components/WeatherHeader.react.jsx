@@ -261,11 +261,12 @@ var WeatherDetail = React.createClass({
                 evening: [18, 23],
                 night: [0, 5]
             };
+            var timesOfDayKeysOrder = ['morning', 'day', 'evening', 'night'];
             var hour = new Date().getHours();
             var result = [];
 
-            _.forOwn(timesOfDay, function(range, key) {
-                if (hour >= range[0] && hour <= range[1]) {
+            timesOfDayKeysOrder.forEach(function(key) {
+                if (hour >= timesOfDay[key][0] && hour <= timesOfDay[key][1]) {
                     result.push(key);
                 } else if (result.length > 0) {
                     result.push(key);
