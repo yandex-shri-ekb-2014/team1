@@ -67,7 +67,7 @@ var WeatherFullOneDay = React.createClass({
                     {tempMin}..{tempMax}
                             </td>
                             <td className={'weather-full__icon' + weatherClass}>
-                                <img className="weather-short__icon" src={'//ekb.shri14.ru/icons/' + weatherIcon + '.svg'} />
+                                <img className="weather-short__icon" src={'http://ekb.shri14.ru/icons/' + weatherIcon + '.svg'} />
                             </td>
                             <td className={'weather-full__descr' + weatherClass}>
                     {weatherDescr}
@@ -98,7 +98,7 @@ var WeatherFullOneDay = React.createClass({
                     {weather.sunset}
                             </td>
                             <td rowSpan="4" className="weather-full__moon-icon">
-                                <img src={'//ekb.shri14.ru/icons/icon_moon_' + mooncode + '.svg'} />
+                                <img src={'http://ekb.shri14.ru/icons/icon_moon_' + mooncode + '.svg'} />
                             </td>
                             <td rowSpan="4" className="weather-full__magnetic-field">
                                 <span className="weather-full__magnetic-field-title">
@@ -116,7 +116,7 @@ var WeatherFullOneDay = React.createClass({
                         {tempMin}..{tempMax}
                         </td>
                         <td className={'weather-full__icon' + weatherClass}>
-                            <img className="weather-short__icon" src={'//ekb.shri14.ru/icons/' + weatherIcon + '.svg'} />
+                            <img className="weather-short__icon" src={'http://ekb.shri14.ru/icons/' + weatherIcon + '.svg'} />
                         </td>
                         <td className={'weather-full__descr' + weatherClass}>
                     {weatherDescr}
