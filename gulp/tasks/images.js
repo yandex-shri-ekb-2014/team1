@@ -5,7 +5,7 @@ var config = require('config');
 
 
 gulp.task('images', function () {
-    var srcPath = path.join(config.get('gulp.paths.blocksPath') + '.{png,jpg}');
+    var srcPath = path.join(config.get('gulp.paths.blocksPath') + '.{png,jpg,gif,svg}');
     var destPath = path.join(config.get('gulp.paths.publicPath'), 'images');
 
     gulp.src(srcPath)
