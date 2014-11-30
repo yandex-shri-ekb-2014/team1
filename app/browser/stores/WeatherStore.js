@@ -25,13 +25,6 @@ function WeatherStore() {
 inherits(WeatherStore, events.EventEmitter);
 
 /**
- * @return {boolean}
- */
-WeatherStore.prototype.isLoading = function () {
-    return this._currentWeather === null;
-};
-
-/**
  * @return {string}
  */
 WeatherStore.prototype.getCityName = function () {

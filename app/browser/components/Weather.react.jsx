@@ -36,7 +36,7 @@ var Weather = React.createClass({
     },
 
     render: function () {
-        if (this.state.weather === null) { return (<div />); }
+        if (this.state.weather === null) { return (<img src="/static/images/content/spinner.gif" />); }
 
         var page;
         switch (this.getRoutes()[this.getRoutes().length - 1].name) {
@@ -68,7 +68,9 @@ var Weather = React.createClass({
     },
 
     _onWeatherStoreChange: function () {
-        this.setState({ weather: WeatherStore.getWeather() });
+        this.setState({
+            weather: WeatherStore.getWeather()
+        });
     }
 });
 
