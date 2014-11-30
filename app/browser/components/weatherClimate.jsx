@@ -22,6 +22,7 @@ function drawChart (data) {
         return (tempNum + minTemp);
     });
 
+
     for (var i = 0; i < length; i++) {
         item = data.hours[i];
 
@@ -46,12 +47,13 @@ function drawChart (data) {
             hours[i] = item.hour
         }
     }
+
     new Highcharts.Chart({
         chart: {
             renderTo: 'graph-wrp',
             type: 'column',
-            height: 185,
-            marginTop: 20,
+            height: 200,
+            marginTop: 15,
             spacing: [0,0,0,0]
         },
         xAxis: {
@@ -70,7 +72,8 @@ function drawChart (data) {
             },
             lineWidth: 0,
             tickLength: 0,
-            gridLineWidth: 0
+            gridLineWidth: 0,
+            maxPadding: 0.1
         },
         plotOptions: {
             column: {
@@ -87,7 +90,8 @@ function drawChart (data) {
                     style: {
                         "fontFamily": "Arial",
                         "fontSize": "12px",
-                        "color": "black"
+                        "color": "black",
+                        "top": "-10px"
                     }
                 }
             }
