@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 var delayed = require('delayed');
 var React = require('react');
+var Router = require('react-router');
 
 var SuggestStore = require('../stores/SuggestStore');
 
@@ -8,6 +9,8 @@ var SearchActionCreators = require('../actions/SearchActionCreators');
 
 
 var Header = React.createClass({
+    mixins: [Router.Navigation],
+
     getInitialState: function () {
         return {
             suggest: [],
@@ -57,7 +60,7 @@ var Header = React.createClass({
                                 </div>
                                 <div className="search-info__arrow" />
                             </div>
-                            <form className="search__form" action="">
+                            <form className="search__form" onSubmit={this._onSearchFormSubmit}>
                                 <input type="text" className="search__input" onKeyUp={delayed.debounce(this._onKeyUp, 400, this)} onFocus={this._onSearchInputFocus} onBlur={this._onSearchInputBlur} />
                                 <button className="search__button">Найти</button>
                             </form>
@@ -110,6 +113,16 @@ var Header = React.createClass({
      */
     _onSearchInputBlur: function () {
         this.setState({ isSuggestShow: false });
+    },
+
+    /**
+     */
+    _onSearchFormSubmit: function (event) {
+        event.preventDefault();
+        if (this.state.suggest.length > 0) {
+            this.transitionTo('weather-short', {cityName: this.state.suggest[0].tname});
+            SearchActionCreators.newCity(this.state.suggest[0].tname);
+        }
     }
 });
 
