@@ -14,7 +14,6 @@ var App = React.createClass({
     getInitialState: function () {
         return {
             isConnected: Network.isConnected(),
-            isLoading: true,
             weather: null
         };
     },
@@ -64,7 +63,6 @@ var App = React.createClass({
 
     _onWeatherStoreChange: function () {
         this.setState({
-            isLoading: WeatherStore.isLoading(),
             weather: WeatherStore.getWeather()
         });
     }
