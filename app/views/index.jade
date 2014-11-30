@@ -15,10 +15,10 @@ html
               .search-info
                 .search-info__wrapper-h1
                   h1.search-info__h1 Погода
-                .search-info__arrow
-              form.search__form(action='')
-                input.search__input(type='text')
-                button.search__button Найти
+                  .search-info__arrow
+                  form.search__form(action='')
+                    input.search__input(type='text')
+                    button.search__button Найти
           .header__user
             .user
               img.user__avatar(src='/static/images/header/userpic.jpg', width='42', height='42')
@@ -150,4 +150,5 @@ html
     script(type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js')
     script(type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/q.js/1.1.2/q.min.js')
     script(type='text/javascript' src='//cdn.socket.io/socket.io-1.2.0.js')
+    script(type='text/javascript' src='/static/highcharts-custom.js')
     script(type='text/javascript' src='/static/bundle.js')
