@@ -5,6 +5,7 @@ var Router = require('react-router');
 var SearchActionCreators = require('../actions/SearchActionCreators');
 var Network = require('../lib/Network');
 var WeatherStore = require('../stores/WeatherStore');
+var Header = require('../components/Header.react.jsx')
 
 
 var App = React.createClass({
@@ -45,7 +46,12 @@ var App = React.createClass({
     },
 
     render: function () {
-        return <Router.RouteHandler />;
+        return (
+            <div>
+                <Header />
+                <Router.RouteHandler />
+            </div>
+        );
     },
 
     _onNetworkConnected: function () {

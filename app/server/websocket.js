@@ -119,14 +119,15 @@ function attach(server) {
 
                 if (method === 'suggest') {
                     return weather.getSuggest(params[0]).then(function (entries) {
-                        var promises = entries.map(function (entry) {
+                        var promises = entries.slice(0, 10).map(function (entry) {
                             return geoidAPI.getCityNameByGeoid(entry.geoid).then(function (cityName) {
                                 entry.tname = cityName;
                                 return entry;
-                            });
+
+                            }).catch(function () { return; });
                         });
 
-                        return Q.all(promises);
+                        return Q.all(promises).then(function (entries) { return _.filter(entries); });
                     });
                 }
 
