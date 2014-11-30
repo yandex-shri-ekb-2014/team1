@@ -12,8 +12,9 @@
         "./tests/server/*.js"
       ],
       "publicPath": "./public.production/index/",
-      "appPath": "./app/browser/app.jsx"
+      "appPath": "./app/browser/app.jsx",
+      "staticPath": "./static/*"
     },
-    "default": ["styles" , "scripts", "images"]
+    "default": ["styles", "static" , "scripts", "images"]
   }
 }
