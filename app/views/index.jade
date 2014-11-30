@@ -38,11 +38,11 @@ html
             li Екатеринбург
             li.city-list__ul_li_end Все города
         table.weather-detail__table-detail
-          tr.table-detail__th
-            th.table-detail__th_now сейчас
-            th днем
-            th вечером
-            th ночью
+          tr.table-detail__tr-th
+            th.table-detail__th_now.table-detail__th сейчас
+            th.table-detail__th днем
+            th.table-detail__th вечером
+            th.table-detail__th ночью
             td
           tr.table-detail__temp
             td.table-detail__temp_now.vertical-align-bottom.weather30 +30 °C
@@ -60,8 +60,7 @@ html
               br
               p.table-detail__reg
                 | Данные зарегистрированы недавно
-                a(href='#')
-                  img(src='_.png')
+                img.table-detail__img(src='_.png')
           tr.table-detail__tr_top
             td.table-detail__w-info.weather30
               img(src='w-ico.png')
