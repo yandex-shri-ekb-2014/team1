@@ -70,7 +70,7 @@ var WeatherFullOneDay = React.createClass({
                     {humidity}
                             </td>
                             <td className={'weather-full__wind-icon weather' + (temp + temp % 2)}>
-                                <img src={'http://yandex.st/weather/1.2.83/i/wind/' + windIcon + '.gif'} />
+                                <img className={'wind-'+windIcon} src={'/static/images/content/arrow.svg'} />
                             </td>
                             <td className={'weather-full__wind-speed weather' + (temp + temp % 2)}>
                     {windSpeed}
@@ -118,7 +118,7 @@ var WeatherFullOneDay = React.createClass({
                     {humidity}
                         </td>
                         <td className={'weather-full__wind-icon weather' + (temp + temp % 2)}>
-                            <img src={'http://yandex.st/weather/1.2.83/i/wind/' + windIcon + '.gif'} />
+                            <img className={'wind-'+windIcon} src={'/static/images/content/arrow.svg'} />
                         </td>
                         <td className={'weather-full__wind-speed weather' + (temp + temp % 2)}>
                     {windSpeed}
