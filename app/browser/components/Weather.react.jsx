@@ -8,7 +8,7 @@ var WeatherTabs = require('./WeatherTabs.react.jsx');
 // var WeatherHeader = require('./WeatherHeader.react.jsx');
 var WeatherShort = require('./WeatherShort.react.jsx');
 var WeatherFull = require('./WeatherFull.react.jsx');
-var WeatherClimate = require('./WeatherClimate.jsx');
+var WeatherClimate = require('./weatherClimate.jsx');
 
 
 
