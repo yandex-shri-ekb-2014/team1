@@ -67,7 +67,7 @@ var WeatherFullOneDay = React.createClass({
                     {tempMin}..{tempMax}
                             </td>
                             <td className={'weather-full__icon' + weatherClass}>
-                                <img className="weather-short__icon" src={'//ekb.shri14.ru/icons/' + weatherIcon + '.svg'} />
+                                <img className="weather-short__icon" src={'http://ekb.shri14.ru/icons/' + weatherIcon + '.svg'} />
                             </td>
                             <td className={'weather-full__descr' + weatherClass}>
                     {weatherDescr}
@@ -116,7 +116,7 @@ var WeatherFullOneDay = React.createClass({
                         {tempMin}..{tempMax}
                         </td>
                         <td className={'weather-full__icon' + weatherClass}>
-                            <img className="weather-short__icon" src={'//ekb.shri14.ru/icons/' + weatherIcon + '.svg'} />
+                            <img className="weather-short__icon" src={'http://ekb.shri14.ru/icons/' + weatherIcon + '.svg'} />
                         </td>
                         <td className={'weather-full__descr' + weatherClass}>
                     {weatherDescr}

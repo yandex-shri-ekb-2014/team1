@@ -76,7 +76,7 @@ var WeatherShortDay = React.createClass({
 
             rows.push(
                 <td className={'weather-short__dayweather weather' + (temp + temp % 2)} key={key++}>
-                    <img className="weather-short__icon" src={'//ekb.shri14.ru/icons/' + wIcon + '.svg'} />
+                    <img className="weather-short__icon" src={'http://ekb.shri14.ru/icons/' + wIcon + '.svg'} />
                     <p className="weather-short__descr">{weather.parts[4].weather}</p>
                     <p className="weather-short__temperature">{(temp > 0 ? '+' : '') + temp}</p>
                 </td>
