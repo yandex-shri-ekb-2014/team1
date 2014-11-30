@@ -60,7 +60,7 @@ function drawChart (data) {
             categories: hours,
             title: false,
             labels: {
-                enabled:false
+                enabled: true
             },
             lineWidth: 0,
             tickLength: 0

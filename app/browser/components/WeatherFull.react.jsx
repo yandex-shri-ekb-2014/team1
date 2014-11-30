@@ -26,7 +26,7 @@ var WeatherFullOneDay = React.createClass({
             var dayname = DayShortNames[date.day()];
             var monthname = MonthNames[date.month()];
             var daynumber = date.date();
-            var mooncode = (weather.moon_code.length == 1) ? ('0' + weather.moon_code) : (''  + weather.moon_code);
+            var mooncode = weather.moon_code;
             var magnetictitle = (weather.biomet && weather.biomet.message) ? ('магнитное поле') : ('');
 
             weather.parts.slice(0,4).forEach(function (part, index) {
@@ -41,11 +41,14 @@ var WeatherFullOneDay = React.createClass({
                 var windIcon = part.wind_direction;
                 var windDirection = part.wind_abbr;
                 var windSpeed = part.wind_speed;
+                var weatherClass = " weather" + (temp + temp % 2);
 
                 if ( !tempMin || !tempMax ) {
                     tempMin = temp - 1;
                     tempMax = temp + 1;
                 }
+
+
 
                 if (index === 0) {
                     return rows.push(
@@ -54,27 +57,27 @@ var WeatherFullOneDay = React.createClass({
                                 <span className="weather-full__day-name">{dayname}</span>
                                 <span className="weather-full__date"><span className="weather-full__date-number">{daynumber}</span><span className="weather-full__date-month">{monthname}</span></span>
                             </td>
-                            <td className={'weather-full__time-of-day-cell weather' + (temp + temp % 2)}>
+                            <td className={'weather-full__time-of-day-cell' + weatherClass}>
                                 <span className="weather-full__time-of-day">{timeOfDay[index]}</span>
                     {tempMin}..{tempMax}
                             </td>
-                            <td className={'weather-full__icon weather' + (temp + temp % 2)}>
+                            <td className={'weather-full__icon' + weatherClass}>
                                 <img className="weather-short__icon" src={'//ekb.shri14.ru/icons/' + weatherIcon + '.svg'} />
                             </td>
-                            <td className={'weather-full__descr weather' + (temp + temp % 2)}>
+                            <td className={'weather-full__descr' + weatherClass}>
                     {weatherDescr}
                             </td>
-                            <td className={'weather-full__pressure weather' + (temp + temp % 2)}>
+                            <td className={'weather-full__pressure' + weatherClass}>
                     {pressure}
                             </td>
-                            <td className={'weather-full__humidity weather' + (temp + temp % 2)}>
+                            <td className={'weather-full__humidity' + weatherClass}>
                     {humidity}
                             </td>
-                            <td className={'weather-full__wind-icon weather' + (temp + temp % 2)}>
+                            <td className={'weather-full__wind-icon' + weatherClass}>
                                 <img className={'wind-'+windIcon} src={'/static/images/content/arrow.svg'} />
                                 <p className="wind-direction">{windDirection}</p>
                             </td>
-                            <td className={'weather-full__wind-speed weather' + (temp + temp % 2)}>
+                            <td className={'weather-full__wind-speed' + weatherClass}>
                     {windSpeed}
                             </td>
                             <td rowSpan="4" className="weather-full__sun">
@@ -103,27 +106,27 @@ var WeatherFullOneDay = React.createClass({
                 }
                 rows.push(
                     <tr className ="weather-full__row">
-                        <td className={'weather-full__time-of-day-cell weather' + (temp + temp % 2)}>
-                            <span className="weather-full__time-of-day">днем</span>
+                        <td className={'weather-full__time-of-day-cell' + weatherClass}>
+                            <span className="weather-full__time-of-day">{timeOfDay[index]}</span>
                         {tempMin}..{tempMax}
                         </td>
-                        <td className={'weather-full__icon weather' + (temp + temp % 2)}>
+                        <td className={'weather-full__icon' + weatherClass}>
                             <img className="weather-short__icon" src={'//ekb.shri14.ru/icons/' + weatherIcon + '.svg'} />
                         </td>
-                        <td className={'weather-full__descr weather' + (temp + temp % 2)}>
+                        <td className={'weather-full__descr' + weatherClass}>
                     {weatherDescr}
                         </td>
-                        <td className={'weather-full__pressure weather' + (temp + temp % 2)}>
+                        <td className={'weather-full__pressure' + weatherClass}>
                     {pressure}
                         </td>
-                        <td className={'weather-full__humidity weather' + (temp + temp % 2)}>
+                        <td className={'weather-full__humidity' + weatherClass}>
                     {humidity}
                         </td>
-                        <td className={'weather-full__wind-icon weather' + (temp + temp % 2)}>
+                        <td className={'weather-full__wind-icon' + weatherClass}>
                             <img className={'wind-'+windIcon} src={'/static/images/content/arrow.svg'} />
                             <p className="wind-direction">{windDirection}</p>
                         </td>
-                        <td className={'weather-full__wind-speed weather' + (temp + temp % 2)}>
+                        <td className={'weather-full__wind-speed' + weatherClass}>
                     {windSpeed}
                         </td>
                     </tr>
