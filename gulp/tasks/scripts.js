@@ -9,11 +9,16 @@ var config = require('config');
 
 // Include scripts task ( concat + uglify )
 gulp.task('scripts', function () {
-    browserify(config.get('gulp.paths.appPath'))
+    var env = process.env.NODE_ENV || 'development';
+    var stream = browserify(config.get('gulp.paths.appPath'))
         .transform(reactify)
         .bundle()
         .pipe(source('bundle.js'))
-        .pipe(buffer())
-        .pipe(uglify())
-        .pipe(gulp.dest(config.get('gulp.paths.publicPath')));
+        .pipe(buffer());
+    if (env === 'production') {
+        stream = stream.pipe(uglify());
+    }
+    stream.pipe(gulp.dest(config.get('gulp.paths.publicPath')));
+
+
 });
