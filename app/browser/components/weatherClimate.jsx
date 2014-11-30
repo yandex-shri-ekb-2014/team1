@@ -2,12 +2,12 @@
 
 
 function drawChart (data) {
-    console.log(data);
     var weatherHours = [];
     var hours = [];
     var item;
     var length = data.hours.length;
     var temp;
+    var tempArray = [];
 
     tempArray = data.hours.map(function (item) {
         return item.temp;
