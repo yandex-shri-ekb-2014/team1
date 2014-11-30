@@ -5,11 +5,10 @@ var Router = require('react-router');
 var WeatherStore = require('../stores/WeatherStore');
 
 var WeatherTabs = require('./WeatherTabs.react.jsx');
-// var WeatherHeader = require('./WeatherHeader.react.jsx');
+var WeatherHeader = require('./WeatherHeader.react.jsx');
 var WeatherShort = require('./WeatherShort.react.jsx');
 var WeatherFull = require('./WeatherFull.react.jsx');
-var WeatherClimate = require('./weatherClimate.jsx');
-
+var WeatherClimate = require('./WeatherClimate.jsx');
 
 
 var Weather = React.createClass({
@@ -59,11 +58,14 @@ var Weather = React.createClass({
         }
 
         return (
-            // Hello fdr! Wait your code here...
-            <section className="content">
-                <WeatherTabs />
-                {page}
-            </section>
+            <div>
+                <WeatherHeader data={this.state.weather} />
+
+                <section className="content">
+                    <WeatherTabs />
+                    {page}
+                </section>
+            </div>
         );
     },
 

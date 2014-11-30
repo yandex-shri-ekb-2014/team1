@@ -109,7 +109,9 @@ module.exports = function websocketImplementationTests(functions, socketObj) {
 
         it('suggest: return one', function (done) {
             socket.on('message', function (msg) {
-                expect(JSON.parse(msg)).to.deep.equal({
+                msg = JSON.parse(msg)
+                delete msg.temp
+                expect(msg).to.deep.equal({
                     id: 0,
                     result: [
                         {
