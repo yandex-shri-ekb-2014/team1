@@ -61,7 +61,7 @@ var Header = React.createClass({
                                 <div className="search-info__arrow" />
                             </div>
                             <form className="search__form" onSubmit={this._onSearchFormSubmit}>
-                                <input type="text" className="search__input" onKeyUp={delayed.debounce(this._onKeyUp, 400, this)} onFocus={this._onSearchInputFocus} onBlur={this._onSearchInputBlur} />
+                                <input type="text" className="search__input" onKeyUp={delayed.debounce(this._onKeyUp, 400, this)} onFocus={this._onSearchInputFocus} onBlur={delayed.debounce(this._onSearchInputBlur, 250)} />
                                 <button className="search__button">Найти</button>
                             </form>
                         </div>
