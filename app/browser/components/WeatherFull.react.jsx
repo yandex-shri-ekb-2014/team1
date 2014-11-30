@@ -39,6 +39,7 @@ var WeatherFullOneDay = React.createClass({
                 var humidity = part.humidity;
                 var weatherIcon = part.weather_icon;
                 var windIcon = part.wind_direction;
+                var windDirection = part.wind_abbr;
                 var windSpeed = part.wind_speed;
 
                 if ( !tempMin || !tempMax ) {
@@ -71,6 +72,7 @@ var WeatherFullOneDay = React.createClass({
                             </td>
                             <td className={'weather-full__wind-icon weather' + (temp + temp % 2)}>
                                 <img className={'wind-'+windIcon} src={'/static/images/content/arrow.svg'} />
+                                <p className="wind-direction">{windDirection}</p>
                             </td>
                             <td className={'weather-full__wind-speed weather' + (temp + temp % 2)}>
                     {windSpeed}
@@ -119,6 +121,7 @@ var WeatherFullOneDay = React.createClass({
                         </td>
                         <td className={'weather-full__wind-icon weather' + (temp + temp % 2)}>
                             <img className={'wind-'+windIcon} src={'/static/images/content/arrow.svg'} />
+                            <p className="wind-direction">{windDirection}</p>
                         </td>
                         <td className={'weather-full__wind-speed weather' + (temp + temp % 2)}>
                     {windSpeed}
