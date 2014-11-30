@@ -53,7 +53,7 @@ var TableDetailRows = React.createClass({
         weather: function(data, key) {
             return (
                 <td className={data.classes} key={key}>
-                    <img src={'http://ekb.shri14.ru/icons/' + data.weather_icon + '.svg'}
+                    <img className="table-detail__w-info_img" src={'http://ekb.shri14.ru/icons/' + data.weather_icon + '.svg'}
                         width={data.size}
                         height={data.size} />
                     {data.weather ? data.weather : ''}
@@ -70,7 +70,6 @@ var TableDetailRows = React.createClass({
                 Восход: {data.sunrise} Заход: {data.sunset}<br />
                     <p className="table-detail__reg">
                         Данные зарегистрированы недавно
-                        <img src="/static/images/header/_.png" />
                     </p>
                 </td>
             );
