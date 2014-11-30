@@ -1,6 +1,5 @@
 /** @jsx React.DOM */
 
-
 function drawChart (data) {
     var weatherHours = [];
     var hours = [];
