@@ -43,10 +43,10 @@ var WeatherShortHeader = React.createClass({
             }
 
             rows.push(
-                <td className="weather-short__item" key={key++}>
+                <th className="weather-short__item" key={key++}>
                     <p className="weather-short__dayname">{dayname}</p>
                     <p className="weather-short__date">{datename}</p>
-                </td>
+                </th>
             );
         });
 
