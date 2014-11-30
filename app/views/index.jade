@@ -25,58 +25,6 @@ html
               a.user__name(href='#')
                 span.user__red S
                 | arah Connor
-    .weather-detail
-      .weather-detail__select-city
-        h2.select-city__h2 Екатеринбург
-        .city-list
-          p.city-list__p
-            | Другой город
-            img(src='/static/images/header/active-arrow.png')
-          ul.city-list__ul
-            li.city-list__ul_li_begin Последние города
-            li.city-list__ul_li_active Москва
-            li Санкт-Петербург
-            li Екатеринбург
-            li.city-list__ul_li_end Все города
-        table.weather-detail__table-detail
-          tr.table-detail__th
-            th.table-detail__th_now сейчас
-            th днем
-            th вечером
-            th ночью
-            td
-          tr.table-detail__temp
-            td.table-detail__temp_now.vertical-align-bottom.weather30 +30 °C
-            td.vertical-align-bottom.weather14 +15 °C
-            td.vertical-align-bottom.weather4 +4 °C
-            td.vertical-align-bottom.weather-2 −2 °C
-            td.table-detail__more-info.vertical-align-top(rowspan='2')
-              | Давление: 735 мм рт. ст.
-              br
-              | Ветер: северо-восточный, 2.7 м/с (9.7 км/ч)
-              br
-              | Влажность: 72%
-              br
-              | Восход: 06:36 Заход: 21:24
-              br
-              p.table-detail__reg
-                | Данные зарегистрированы недавно
-                a(href='#')
-                  img(src='/static/images/header/_.png')
-          tr.table-detail__tr_top
-            td.table-detail__w-info.weather30
-              img(src='/static/images/header/w-ico.png')
-              | малооблачно
-            td.weather14
-              img(src='/static/images/header/w-ico-min.png')
-            td.weather4
-              img(src='/static/images/header/w-ico-min.png')
-            td.weather-2
-              img(src='/static/images/header/w-ico-min.png')
-          tr
-            td.table-detail__yesterday(colspan='5') вчера +10 °C
-      .weather-detail__rotater
-        img(src='/static/images/header/rotator.jpg')
 
     div#content
 
