@@ -42,7 +42,7 @@ var WeatherFullOneDay = React.createClass({
                 var windSpeed = part.wind_speed;
 
                 if ( !tempMin || !tempMax ) {
-                    tempMin = temp - 1; 
+                    tempMin = temp - 1;
                     tempMax = temp + 1;
                 }
 
@@ -58,7 +58,7 @@ var WeatherFullOneDay = React.createClass({
                     {tempMin}..{tempMax}
                             </td>
                             <td className={'weather-full__icon weather' + (temp + temp % 2)}>
-                                <img className="weather-short__icon" src={'http://yandex.st/weather/1.2.77/i/icons/30x30/' + weatherIcon + '.png'} />
+                                <img className="weather-short__icon" src={'//ekb.shri14.ru/icons/' + weatherIcon + '.svg'} />
                             </td>
                             <td className={'weather-full__descr weather' + (temp + temp % 2)}>
                     {weatherDescr}
@@ -88,7 +88,7 @@ var WeatherFullOneDay = React.createClass({
                     {weather.sunset}
                             </td>
                             <td rowSpan="4" className="weather-full__moon-icon">
-                                <img src={'http://yandex.st/weather/1.2.83/i/moon/' + mooncode + '.gif'} />
+                                <img src={'//ekb.shri14.ru/icons/icon_moon_' + mooncode + '.svg'} />
                             </td>
                             <td rowSpan="4" className="weather-full__magnetic-field">
                                 <span className="weather-full__magnetic-field-title">
@@ -106,7 +106,7 @@ var WeatherFullOneDay = React.createClass({
                         {tempMin}..{tempMax}
                         </td>
                         <td className={'weather-full__icon weather' + (temp + temp % 2)}>
-                            <img className="weather-short__icon" src={'http://yandex.st/weather/1.2.77/i/icons/30x30/' + weatherIcon + '.png'} />
+                            <img className="weather-short__icon" src={'//ekb.shri14.ru/icons/' + weatherIcon + '.svg'} />
                         </td>
                         <td className={'weather-full__descr weather' + (temp + temp % 2)}>
                     {weatherDescr}
