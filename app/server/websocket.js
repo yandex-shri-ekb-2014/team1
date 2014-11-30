@@ -122,11 +122,11 @@ function attach(server) {
                         var promises = entries.slice(0, 9).map(function (entry) {
                             return geoidAPI.getCityNameByGeoid(entry.geoid).then(function (cityName) {
                                 entry.tname = cityName;
-                                return weatherAPI.getFactual([entry.geoid])
+                                return weatherAPI.getFactual([entry.geoid]);
 
                             }).then(function (result) {
                                 entry.temp = result[0].temp;
-                                return entry
+                                return entry;
 
                             }).catch(function () { return; });
                         });
