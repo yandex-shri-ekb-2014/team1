@@ -107,7 +107,7 @@ module.exports = function websocketImplementationTests(functions, socketObj) {
             socket.send('{"id": 0, "method": "weather.subscribe", "params": ["ekaterynburg"]}');
         });
 
-        it.only('suggest: return one', function (done) {
+        it('suggest: return one', function (done) {
             socket.on('message', function (msg) {
                 msg = JSON.parse(msg)
                 delete msg.result[0].temp
