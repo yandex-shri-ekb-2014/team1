@@ -40,8 +40,11 @@ var WeatherFullOneDay = React.createClass({
                 var weatherIcon = part.weather_icon;
                 var windIcon = part.wind_direction;
                 var windSpeed = part.wind_speed;
-                var tempClass = " weather" + (temp + temp % 2);
 
+                if ( !tempMin || !tempMax ) {
+                    tempMin = temp - 1; 
+                    tempMax = temp + 1;
+                }
 
                 if (index === 0) {
                     return rows.push(
@@ -50,26 +53,26 @@ var WeatherFullOneDay = React.createClass({
                                 <span className="weather-full__day-name">{dayname}</span>
                                 <span className="weather-full__date"><span className="weather-full__date-number">{daynumber}</span><span className="weather-full__date-month">{monthname}</span></span>
                             </td>
-                            <td className={'weather-full__time-of-day-cell' + tempClass}>
+                            <td className={'weather-full__time-of-day-cell weather' + (temp + temp % 2)}>
                                 <span className="weather-full__time-of-day">{timeOfDay[index]}</span>
-                        {tempMin}..{tempMax}
+                    {tempMin}..{tempMax}
                             </td>
-                            <td className={'weather-full__icon' + tempClass}>
+                            <td className={'weather-full__icon weather' + (temp + temp % 2)}>
                                 <img className="weather-short__icon" src={'http://yandex.st/weather/1.2.77/i/icons/30x30/' + weatherIcon + '.png'} />
                             </td>
-                            <td className={'weather-full__descr' + tempClass}>
+                            <td className={'weather-full__descr weather' + (temp + temp % 2)}>
                     {weatherDescr}
                             </td>
-                            <td className={'weather-full__pressure' + tempClass}>
+                            <td className={'weather-full__pressure weather' + (temp + temp % 2)}>
                     {pressure}
                             </td>
-                            <td className={'weather-full__humidity' + tempClass}>
+                            <td className={'weather-full__humidity weather' + (temp + temp % 2)}>
                     {humidity}
                             </td>
-                            <td className={'weather-full__wind-icon' + tempClass}>
+                            <td className={'weather-full__wind-icon weather' + (temp + temp % 2)}>
                                 <img src={'http://yandex.st/weather/1.2.83/i/wind/' + windIcon + '.gif'} />
                             </td>
-                            <td className={'weather-full__wind-speed' + tempClass}>
+                            <td className={'weather-full__wind-speed weather' + (temp + temp % 2)}>
                     {windSpeed}
                             </td>
                             <td rowSpan="4" className="weather-full__sun">
@@ -98,26 +101,26 @@ var WeatherFullOneDay = React.createClass({
                 }
                 rows.push(
                     <tr className ="weather-full__row">
-                        <td className={'weather-full__time-of-day-cell' + tempClass}>
+                        <td className={'weather-full__time-of-day-cell weather' + (temp + temp % 2)}>
                             <span className="weather-full__time-of-day">днем</span>
                         {tempMin}..{tempMax}
                         </td>
-                        <td className={'weather-full__icon' + tempClass}>
+                        <td className={'weather-full__icon weather' + (temp + temp % 2)}>
                             <img className="weather-short__icon" src={'http://yandex.st/weather/1.2.77/i/icons/30x30/' + weatherIcon + '.png'} />
                         </td>
-                        <td className={'weather-full__descr' + tempClass}>
+                        <td className={'weather-full__descr weather' + (temp + temp % 2)}>
                     {weatherDescr}
                         </td>
-                        <td className={'weather-full__pressure' + tempClass}>
+                        <td className={'weather-full__pressure weather' + (temp + temp % 2)}>
                     {pressure}
                         </td>
-                        <td className={'weather-full__humidity' + tempClass}>
+                        <td className={'weather-full__humidity weather' + (temp + temp % 2)}>
                     {humidity}
                         </td>
-                        <td className={'weather-full__wind-icon' + tempClass}>
+                        <td className={'weather-full__wind-icon weather' + (temp + temp % 2)}>
                             <img src={'http://yandex.st/weather/1.2.83/i/wind/' + windIcon + '.gif'} />
                         </td>
-                        <td className={'weather-full__wind-speed' + tempClass}>
+                        <td className={'weather-full__wind-speed weather' + (temp + temp % 2)}>
                     {windSpeed}
                         </td>
                     </tr>
