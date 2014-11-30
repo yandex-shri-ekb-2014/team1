@@ -10,7 +10,8 @@ var SearchActionCreators = require('../actions/SearchActionCreators');
 var Header = React.createClass({
     getInitialState: function () {
         return {
-            suggest: []
+            suggest: [],
+            isSuggestShow: false
         }
     },
 
@@ -23,10 +24,20 @@ var Header = React.createClass({
     },
 
     render: function() {
-        
-        var suggestList = this.state.suggest.map(function (entry) {
+        var suggestEntries = [];
+        if (this.state.isSuggestShow) {
+            suggestEntries = this.state.suggest;
+        }
+
+        var suggestList = suggestEntries.map(function (entry) {
             var temp = entry.temp;
-            return <li className='search-suggest-item'><a className={'weather' + (temp + temp % 2)} href={'/'+entry.tname}>{entry.name}&nbsp;{entry.temp}</a></li>
+            var aClassName = 'weather' + (temp + temp % 2);
+
+            return (
+                <li className='search-suggest-item'>
+                    <a className={aClassName} href={'/' + entry.tname}>{entry.name}<span className='search-suggest-item-temp'>{entry.temp}</span></a>
+                </li>
+            );
         });
 
         return (
@@ -47,7 +58,7 @@ var Header = React.createClass({
                                 <div className="search-info__arrow" />
                             </div>
                             <form className="search__form" action="">
-                                <input type="text" className="search__input" onKeyUp={delayed.debounce(this._onKeyUp, 500, this)} />
+                                <input type="text" className="search__input" onKeyUp={delayed.debounce(this._onKeyUp, 400, this)} onFocus={this._onSearchInputFocus} onBlur={this._onSearchInputBlur} />
                                 <button className="search__button">Найти</button>
                             </form>
                         </div>
@@ -61,6 +72,14 @@ var Header = React.createClass({
                 </div>
             </header>
         );
+    },
+
+    /**
+     */
+    _onHeaderStoreChange: function () {
+        if (this._getSearchQuery() !== SuggestStore.getQuery()) { return; }
+
+        this.setState({ suggest: SuggestStore.getSuggest() });
     },
 
     /**
@@ -83,10 +102,14 @@ var Header = React.createClass({
 
     /**
      */
-    _onHeaderStoreChange: function () {
-        if (this._getSearchQuery() !== SuggestStore.getQuery()) { return; }
+    _onSearchInputFocus: function () {
+        this.setState({ isSuggestShow: true });
+    },
 
-        this.setState({ suggest: SuggestStore.getSuggest() });
+    /**
+     */
+    _onSearchInputBlur: function () {
+        this.setState({ isSuggestShow: false });
     }
 });
 
