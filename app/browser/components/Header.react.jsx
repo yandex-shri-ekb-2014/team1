@@ -23,7 +23,11 @@ var Header = React.createClass({
     },
 
     render: function() {
-        console.log('Header.render', this.state.suggest);
+        
+        var suggestList = this.state.suggest.map(function (entry) {
+            var temp = entry.temp;
+            return <li className='search-suggest-item'><a className={'weather' + (temp + temp % 2)} href={'/'+entry.tname}>{entry.name}&nbsp;{entry.temp}</a></li>
+        });
 
         return (
             <header>
@@ -33,6 +37,9 @@ var Header = React.createClass({
                     </div>
                     <div className="header__search">
                         <div className="search">
+                            <ul className="search-suggest">
+                                {suggestList}
+                            </ul>
                             <div className="search-info">
                                 <div className="search-info__wrapper-h1">
                                     <h1 className="search-info__h1">Погода</h1>
