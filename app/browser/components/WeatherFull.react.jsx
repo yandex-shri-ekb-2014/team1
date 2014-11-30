@@ -28,6 +28,11 @@ var WeatherFullOneDay = React.createClass({
             var daynumber = date.date();
             var mooncode = (weather.moon_code.length == 1) ? ('0' + weather.moon_code) : (''  + weather.moon_code);
             var magnetictitle = (weather.biomet && weather.biomet.message) ? ('магнитное поле') : ('');
+            var dateCellClasses = ['weather-full__date-cell'];
+
+            if (dayname === 'сб' || dayname === 'вс') {
+                dateCellClasses.push('weather-full__date-cell_holydays');
+            }
 
             weather.parts.slice(0,4).forEach(function (part, index) {
                 var temp = part.temp;
@@ -49,7 +54,7 @@ var WeatherFullOneDay = React.createClass({
                 if (index === 0) {
                     return rows.push(
                         <tr className ="weather-full__row">
-                            <td className="weather-full__date-cell" rowSpan="4">
+                            <td className={dateCellClasses.join(' ')} rowSpan="4">
                                 <span className="weather-full__day-name">{dayname}</span>
                                 <span className="weather-full__date"><span className="weather-full__date-number">{daynumber}</span><span className="weather-full__date-month">{monthname}</span></span>
                             </td>
@@ -102,7 +107,7 @@ var WeatherFullOneDay = React.createClass({
                 rows.push(
                     <tr className ="weather-full__row">
                         <td className={'weather-full__time-of-day-cell weather' + (temp + temp % 2)}>
-                            <span className="weather-full__time-of-day">днем</span>
+                            <span className="weather-full__time-of-day">{timeOfDay[index]}</span>
                         {tempMin}..{tempMax}
                         </td>
                         <td className={'weather-full__icon weather' + (temp + temp % 2)}>

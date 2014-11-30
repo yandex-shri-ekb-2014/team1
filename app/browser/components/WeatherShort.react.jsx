@@ -42,8 +42,15 @@ var WeatherShortHeader = React.createClass({
                 isCurrentMonth = date.month();
             }
 
+            var classes = ['weather-short__item'];
+            var currentDayname = DayShortNames[date.day()];
+
+            if (currentDayname === 'вс' || currentDayname === 'сб') {
+                classes.push('weather-short__item_holidays');
+            }
+
             rows.push(
-                <th className="weather-short__item" key={key++}>
+                <th className={classes.join(' ')} key={key++}>
                     <p className="weather-short__dayname">{dayname}</p>
                     <p className="weather-short__date">{datename}</p>
                 </th>
