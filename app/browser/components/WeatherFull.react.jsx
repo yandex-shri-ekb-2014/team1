@@ -55,7 +55,7 @@ var WeatherFullOneDay = React.createClass({
                             </td>
                             <td className={'weather-full__time-of-day-cell weather' + (temp + temp % 2)}>
                                 <span className="weather-full__time-of-day">{timeOfDay[index]}</span>
-                        {tempMin}..{tempMax}
+                    {tempMin}..{tempMax}
                             </td>
                             <td className={'weather-full__icon weather' + (temp + temp % 2)}>
                                 <img className="weather-short__icon" src={'http://yandex.st/weather/1.2.77/i/icons/30x30/' + weatherIcon + '.png'} />
